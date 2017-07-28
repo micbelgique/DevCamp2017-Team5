@@ -16,12 +16,15 @@ namespace FamiDesk.Mobile.App.MobileAppService.Migrations
 
 		protected override void Seed(FamiDesk.Mobile.App.MobileAppService.Models.MasterDetailContext context)
 		{
-			
+			context.Users.RemoveRange(context.Users);
+			context.Persons.RemoveRange(context.Persons);
+			context.EventInfos.RemoveRange(context.EventInfos);
+			context.SaveChanges();
 
-		var kine = new User
+			var kine = new User
 			{
 				Id = "76321492-16BA-42DF-9470-059885843CEC"
-		};
+			};
 
 			var doctor = new User
 			{
