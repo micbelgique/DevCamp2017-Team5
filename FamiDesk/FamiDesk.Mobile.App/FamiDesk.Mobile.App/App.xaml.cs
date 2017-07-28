@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 using FamiDesk.Mobile.App.Helpers;
 using FamiDesk.Mobile.App.Services;
 using FamiDesk.Mobile.App.Views;
@@ -7,12 +6,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+
 namespace FamiDesk.Mobile.App
 {
     public partial class App : Application
     {
         //MUST use HTTPS, neglecting to do so will result in runtime errors on iOS
         public static bool AzureNeedsSetup => AzureMobileAppUrl == "https://CONFIGURE-THIS-URL.azurewebsites.net";
+
         public static string AzureMobileAppUrl = "https://FamiDeskMobileApp.azurewebsites.net";
         public static IDictionary<string, string> LoginParameters => null;
 
@@ -23,7 +24,10 @@ namespace FamiDesk.Mobile.App
             if (AzureNeedsSetup)
                 DependencyService.Register<MockDataStore>();
             else
-                DependencyService.Register<AzureDataStore>();
+            {
+                DependencyService.Register<PersonAzureDataStore>();
+                DependencyService.Register<EventAzureDataStore>();
+            }
 
             SetMainPage();
         }
@@ -34,7 +38,7 @@ namespace FamiDesk.Mobile.App
             {
                 Current.MainPage = new NavigationPage(new LoginPage())
                 {
-                    BarBackgroundColor = (Color)Current.Resources["Primary"],
+                    BarBackgroundColor = (Color) Current.Resources["Primary"],
                     BarTextColor = Color.White
                 };
             }
@@ -53,12 +57,12 @@ namespace FamiDesk.Mobile.App
                     new NavigationPage(new ItemsPage())
                     {
                         Title = "Browse",
-                        Icon = Device.OnPlatform("tab_feed.png",null,null)
+                        Icon = Device.OnPlatform("tab_feed.png", null, null)
                     },
                     new NavigationPage(new AboutPage())
                     {
                         Title = "About",
-                        Icon = Device.OnPlatform("tab_about.png",null,null)
+                        Icon = Device.OnPlatform("tab_about.png", null, null)
                     },
                 }
             };
