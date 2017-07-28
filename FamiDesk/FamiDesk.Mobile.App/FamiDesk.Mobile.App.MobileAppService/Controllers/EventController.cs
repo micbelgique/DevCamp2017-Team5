@@ -8,6 +8,7 @@ using Microsoft.Azure.Mobile.Server;
 
 using FamiDesk.Mobile.App.MobileAppService.DataObjects;
 using FamiDesk.Mobile.App.MobileAppService.Models;
+using System;
 
 namespace FamiDesk.Mobile.App.MobileAppService.Controllers
 {
@@ -15,10 +16,11 @@ namespace FamiDesk.Mobile.App.MobileAppService.Controllers
     // [Authorize]
     public class EventController : TableController<Event>
     {
-        protected override void Initialize(HttpControllerContext controllerContext)
+		MasterDetailContext context;
+		protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            MasterDetailContext context = new MasterDetailContext();
+            context = new MasterDetailContext();
             DomainManager = new EntityDomainManager<Event>(context, Request);
         }
 
@@ -52,5 +54,36 @@ namespace FamiDesk.Mobile.App.MobileAppService.Controllers
         {
             return DeleteAsync(id);
         }
-    }
+
+		public async Task CheckIn(string personId, string comment)
+		{
+			var person = await context.Persons.FindAsync(personId);
+			if (person == null)
+				NotFound();
+
+			var item = new Event {
+				Id = Guid.NewGuid().ToString(),
+				Date = DateTime.UtcNow,
+				Type = EEventType.CheckIn,
+				Comment = comment,
+				Person = person
+			};
+		}
+
+		public async Task CheckOut(string personId, string comment)
+		{
+			var person = await context.Persons.FindAsync(personId);
+			if (person == null)
+				NotFound();
+
+			var item = new Event
+			{
+				Id = Guid.NewGuid().ToString(),
+				Date = DateTime.UtcNow,
+				Type = EEventType.CheckIn,
+				Comment = comment,
+				Person = person
+			};
+		}
+	}
 }
