@@ -1,36 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-
 using FamiDesk.Mobile.App.Helpers;
 using FamiDesk.Mobile.App.Models;
 using FamiDesk.Mobile.App.Views;
-
 using Xamarin.Forms;
 
 namespace FamiDesk.Mobile.App.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class AllPersonViewModel : BaseViewModel
     {
-        public ObservableRangeCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
+        public ObservableRangeCollection<Person> Persons { get; set; }
+        public Command LoadPersonsCommand { get; set; }
 
-        public ItemsViewModel()
+        public AllPersonViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableRangeCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-            {
-                var _item = item as Item;
-                Items.Add(_item);
-              //  await DataStore.AddItemAsync(_item);
-            });
+            Title = "Persons";
+            Persons = new ObservableRangeCollection<Person>();
+            LoadPersonsCommand = new Command(async () => await ExecuteLoadPersonsCommand());
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task ExecuteLoadPersonsCommand()
         {
             if (IsBusy)
                 return;
@@ -39,9 +32,9 @@ namespace FamiDesk.Mobile.App.ViewModels
 
             try
             {
-                Items.Clear();
-                IEnumerable<Item> items = null; // await DataStore.GetItemsAsync(true);
-                Items.ReplaceRange(items);
+                Persons.Clear();
+                var persons =  await PersonDataStore.GetItemsAsync(true);
+                Persons.ReplaceRange(persons);
             }
             catch (Exception ex)
             {

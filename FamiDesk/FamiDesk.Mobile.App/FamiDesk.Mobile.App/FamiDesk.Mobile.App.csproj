@@ -43,7 +43,7 @@
     <Compile Include="Helpers\ObservableRangeCollection.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Models\BaseDataObject.cs" />
-    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventInfo.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +54,7 @@
     <Compile Include="Services\MockDataStore.cs" />
     <Compile Include="Services\PersonAzureDataStore.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AllPersonViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ItemDetailViewModel.cs" />
     <Compile Include="ViewModels\ItemsViewModel.cs" />
