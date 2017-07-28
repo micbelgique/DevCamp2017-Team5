@@ -31,10 +31,10 @@ namespace FamiDesk.Mobile.App.MobileAppService.Controllers
         }
 
         // GET tables/Event/48D68C86-6EA6-4C25-AA33-223FC9A27959
-//        public SingleResult<Event> GetEvent(string id)
-//        {
-//            return Lookup(id);
-//        }
+        public SingleResult<Event> GetEvent(string id)
+        {
+            return Lookup(id);
+        }
 
         // PATCH tables/Event/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public Task<Event> PatchEvent(string id, Delta<Event> patch)
