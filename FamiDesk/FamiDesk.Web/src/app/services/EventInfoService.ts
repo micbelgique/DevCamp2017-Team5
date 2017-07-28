@@ -6,7 +6,7 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { EventInfo } from "app/models/Event.model";
 
 @Injectable()
-export class EventService {
+export class EventInfoService {
     constructor(private http: Http,
         private config: ConfigurationService
     ) {}
@@ -18,7 +18,7 @@ export class EventService {
             this.events = new BehaviorSubject<EventInfo[]>([]);
 
             Observable.interval(this.config.pollingMs).subscribe(_ =>{
-            this.http.get(this.config.serverBaseUrl + 'event'/*?ZUMO-API-VERSION=2.0.0'*/)
+            this.http.get(this.config.serverBaseUrl + 'eventinfo'/*?ZUMO-API-VERSION=2.0.0'*/)
                 .map(p => p.json())
                 .subscribe(p => this.events.next(p));
             });
