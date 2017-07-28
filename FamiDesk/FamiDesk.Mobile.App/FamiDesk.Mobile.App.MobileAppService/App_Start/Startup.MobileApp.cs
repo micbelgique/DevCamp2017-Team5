@@ -52,27 +52,6 @@ namespace FamiDesk.Mobile.App.MobileAppService
     }
 
     public class DatabaseInitializer : CreateDatabaseIfNotExists<MasterDetailContext>
-    {
-        protected override void Seed(MasterDetailContext context)
-        {
-            List<Person> persons = new List<Person>
-            {
-				new Person {
-					Id = Guid.NewGuid().ToString(),
-					FirstName = "Ginette",
-					LastName ="Nova" },
-				new Person {
-					Id = Guid.NewGuid().ToString(),
-					FirstName = "Albert",
-					LastName ="Tremblais" }
-               };
-
-            foreach (Person person in persons)
-            {
-                context.Set<Person>().Add(person);
-            }
-
-            base.Seed(context);
-        }
+    {        
     }
 }

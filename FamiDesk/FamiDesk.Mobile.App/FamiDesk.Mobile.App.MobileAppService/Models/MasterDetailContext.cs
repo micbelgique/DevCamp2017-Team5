@@ -23,7 +23,7 @@ namespace FamiDesk.Mobile.App.MobileAppService.Models
         {
         }
 
-        public DbSet<Event> Events { get; set; }
+        public DbSet<EventInfo> EventInfos { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<User> Users { get; set; }
 
