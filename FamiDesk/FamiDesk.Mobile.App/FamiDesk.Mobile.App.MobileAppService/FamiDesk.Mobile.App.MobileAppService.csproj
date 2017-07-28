@@ -181,14 +181,18 @@
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
     <Compile Include="Controllers\PersonController.cs" />
-    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\EventInfoController.cs" />
     <Compile Include="DataObjects\EEventType.cs" />
-    <Compile Include="DataObjects\Event.cs" />
+    <Compile Include="DataObjects\EventInfo.cs" />
     <Compile Include="DataObjects\Person.cs" />
     <Compile Include="DataObjects\User.cs" />
     <Compile Include="Migrations\201707282108437_InitialCreate.cs" />
     <Compile Include="Migrations\201707282108437_InitialCreate.Designer.cs">
       <DependentUpon>201707282108437_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707282247432_v2.cs" />
+    <Compile Include="Migrations\201707282247432_v2.Designer.cs">
+      <DependentUpon>201707282247432_v2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MasterDetailContext.cs" />
@@ -213,6 +217,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707282108437_InitialCreate.resx">
       <DependentUpon>201707282108437_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707282247432_v2.resx">
+      <DependentUpon>201707282247432_v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

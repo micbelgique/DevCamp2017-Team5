@@ -17,22 +17,55 @@ namespace FamiDesk.Mobile.App.MobileAppService.Migrations
 		protected override void Seed(FamiDesk.Mobile.App.MobileAppService.Models.MasterDetailContext context)
 		{
 
+
+			var kine = new User
+			{
+				Id = Guid.NewGuid().ToString()
+			};
+
+			var doctor = new User
+			{
+				Id = Guid.NewGuid().ToString()
+			};
+
+			var ginette = new Person
+			{
+				Id = Guid.NewGuid().ToString(),
+				FirstName = "Ginette",
+				LastName = "Nova"
+			};
+
+			var albert = new Person
+			{
+				Id = Guid.NewGuid().ToString(),
+				FirstName = "Albert",
+				LastName = "Tremblais"
+			};
+
+			context.Users.AddOrUpdate(
+				p => p.Id,
+				kine,
+				doctor
+			);
+
 			context.Persons.AddOrUpdate(
 				p => p.Id,
-				new Person
+				ginette,
+				albert
+			);
+
+			context.EventInfos.AddOrUpdate(
+				p => p.Id,
+				new EventInfo
 				{
 					Id = Guid.NewGuid().ToString(),
-					FirstName = "Ginette",
-					LastName = "Nova"
-				},
-				new Person
-				{
-					Id = Guid.NewGuid().ToString(),
-					FirstName = "Albert",
-					LastName = "Tremblais"
+					Comment = "ras",
+					Date = DateTime.UtcNow.AddDays(-1),
+					PersonId = ginette.Id,
+					Type = EEventType.CheckIn,
+					UserId = kine.Id
 				}
 			);
-			//
 		}
 	}
 }

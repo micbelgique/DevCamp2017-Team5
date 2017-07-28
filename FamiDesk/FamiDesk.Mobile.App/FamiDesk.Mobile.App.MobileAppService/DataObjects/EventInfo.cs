@@ -6,12 +6,12 @@ using System.Web;
 
 namespace FamiDesk.Mobile.App.MobileAppService.DataObjects
 {
-	public class Event : EntityData
+	public class EventInfo : EntityData
 	{
 		public EEventType Type { get; set; }
 		public DateTime Date { get; set; }
 		public string Comment { get; set; }
-		public Person Person { get; set; }
-		public User User { get; set; }
+		public string PersonId { get; set; }
+		public string UserId { get; set; }
 	}
 }
