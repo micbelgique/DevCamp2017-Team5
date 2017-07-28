@@ -71,7 +71,7 @@ namespace FamiDesk.Mobile.App.MobileAppService.Controllers
 		}
 
 		public async Task CheckOut(string personId, string comment)
-		{
+		{			
 			var person = await context.Persons.FindAsync(personId);
 			if (person == null)
 				NotFound();
