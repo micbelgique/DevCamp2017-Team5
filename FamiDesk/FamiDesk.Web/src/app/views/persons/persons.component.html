@@ -1,3 +1,3 @@
 ﻿<div *ngFor="let person of persons">
-  <a [RouterLink=""]>{{person.firstName + ' ' + person.lastName}}</a>
+  <a [routerLink]="['/events/' + person.id]">{{person.firstName + ' ' + person.lastName}}</a>
 </div>
