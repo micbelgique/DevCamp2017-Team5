@@ -10,7 +10,8 @@ namespace FamiDesk.Mobile.App.MobileAppService.DataObjects
 	{
 		public EEventType Type { get; set; }
 		public DateTime Date { get; set; }
-		public DateTime Comment { get; set; }
-
+		public string Comment { get; set; }
+		public Person Person { get; set; }
+		public User User { get; set; }
 	}
 }
