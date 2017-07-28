@@ -1,8 +1,8 @@
 ﻿import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: 'events.component.html'
+    templateUrl: 'eventsInfo.component.html'
 })
-export class EventsComponent {
+export class EventsInfoComponent {
     constructor() { }
 }
