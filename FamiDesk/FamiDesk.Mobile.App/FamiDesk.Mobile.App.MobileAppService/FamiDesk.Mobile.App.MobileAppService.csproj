@@ -180,8 +180,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
-    <Compile Include="Controllers\ItemController.cs" />
-    <Compile Include="DataObjects\Item.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="DataObjects\EEventType.cs" />
+    <Compile Include="DataObjects\Event.cs" />
+    <Compile Include="DataObjects\Person.cs" />
+    <Compile Include="DataObjects\User.cs" />
     <Compile Include="Models\MasterDetailContext.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

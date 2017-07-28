@@ -23,9 +23,11 @@ namespace FamiDesk.Mobile.App.MobileAppService.Models
         {
         }
 
-        public DbSet<Item> Items { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Add(
                 new AttributeToColumnAnnotationConvention<TableColumnAttribute, string>(
