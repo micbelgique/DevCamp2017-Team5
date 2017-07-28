@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { PersonService } from "../../services/PersonService";
 import { Person } from "../../models/Person.model";
-import { EventService } from "app/services/EventService";
+import { EventInfoService } from "app/services/EventInfoService";
 
 @Component({
     templateUrl: 'persons.component.html'
@@ -11,7 +11,7 @@ export class PersonsComponent implements OnInit {
     private persons: Person[];
 
     constructor(private personService: PersonService,
-        private eventService: EventService
+        private eventService: EventInfoService
     ) { }
 
     

@@ -10,7 +10,7 @@ import { PersonService } from "./services/PersonService";
 import 'rxjs/Rx';
 import { ConfigurationService, ConfigurationServiceProd, ConfigurationServiceLocal } from "./services/ConfigurationService";
 import { PersonsComponent } from "app/views/persons/persons.component";
-import { EventService } from "app/services/EventService";
+import { EventInfoService } from "app/services/EventInfoService";
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { EventService } from "app/services/EventService";
   ],
   providers: [
       PersonService,
-      EventService,
+      EventInfoService,
     { provide: ConfigurationService, useClass: ConfigurationServiceProd }
   ],
   bootstrap: [AppComponent]
