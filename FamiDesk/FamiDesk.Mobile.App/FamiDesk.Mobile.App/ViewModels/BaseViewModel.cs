@@ -11,13 +11,14 @@ namespace FamiDesk.Mobile.App.ViewModels
         /// <summary>
         /// Get the azure service instance
         /// </summary>
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<Person> PersonDataStore => DependencyService.Get<IDataStore<Person>>();
+        public IDataStore<Event> EventDataStore => DependencyService.Get<IDataStore<Event>>();
 
-        bool isBusy = false;
+        bool _isBusy = false;
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
         }
         /// <summary>
         /// Private backing field to hold the title
@@ -28,8 +29,8 @@ namespace FamiDesk.Mobile.App.ViewModels
         /// </summary>
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get => title;
+            set => SetProperty(ref title, value);
         }
     }
 }
