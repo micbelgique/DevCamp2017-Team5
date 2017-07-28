@@ -74,7 +74,7 @@ namespace FamiDesk.Mobile.App.Services
                 if (isReauthenticating)
                     return response;
 
-                var client = DependencyService.Get<IDataStore<Item>>() as AzureDataStore;
+                var client = DependencyService.Get<IDataStore<Person>>() as PersonAzureDataStore;
 
                 string authToken = client.MobileService.CurrentUser.MobileServiceAuthenticationToken;
                 await semaphore.WaitAsync();

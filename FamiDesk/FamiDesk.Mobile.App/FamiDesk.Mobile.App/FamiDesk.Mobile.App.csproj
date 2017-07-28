@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Authenticator.cs" />
     <Compile Include="Services\AzureDataStore.cs" />
+    <Compile Include="Services\EventAzureDataStore.cs" />
     <Compile Include="Services\IDataStore.cs" />
     <Compile Include="Services\MockDataStore.cs" />
     <Compile Include="Services\PersonAzureDataStore.cs" />
