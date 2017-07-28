@@ -20,7 +20,7 @@ namespace FamiDesk.Mobile.App.MobileAppService.Controllers
             base.Initialize(controllerContext);
             MasterDetailContext context = new MasterDetailContext();
             DomainManager = new EntityDomainManager<Person>(context, Request);
-        }
+		}
 
         // GET tables/Item
         public IQueryable<Person> GetAllItems()
