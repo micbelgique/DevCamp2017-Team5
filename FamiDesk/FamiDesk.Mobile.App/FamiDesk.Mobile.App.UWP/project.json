@@ -1,11 +1,11 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Microsoft.Azure.Mobile.Client.SQLiteStore": "3.0.3",
-    "Xamarin.Forms": "2.3.4.224",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Plugin.Share": "5.0.0",
+    "Xam.Plugin.Connectivity": "2.3.0",
     "Xam.Plugins.Settings": "2.5.4",
-    "Xam.Plugin.Connectivity": "2.3.0"
+    "Xamarin.Forms": "2.3.4.247"
   },
   "frameworks": {
     "uap10.0": {}
