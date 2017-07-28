@@ -18,7 +18,7 @@ export class PersonService {
             this.persons = new BehaviorSubject<Person[]>([]);
 
             Observable.interval(this.config.pollingMs).subscribe(_ =>{
-            this.http.get(this.config.serverBaseUrl + 'person?ZUMO-API-VERSION=2.0.0')
+            this.http.get(this.config.serverBaseUrl + 'person'/*?ZUMO-API-VERSION=2.0.0'*/)
                 .map(p => p.json())
                 .subscribe(p => this.persons.next(p));
             });

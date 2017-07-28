@@ -9,8 +9,8 @@ export abstract class ConfigurationService {
 @Injectable()
 export class ConfigurationServiceLocal extends ConfigurationService {
   public get serverBaseUrl(): string {
-    //   return 'http://localhost:51799/tables/';
-    return 'http://localhost:4200/tables/';
+      return 'http://localhost:51799/tables/';
+    // return 'http://localhost:4200/tables/';
   }
 
   public get pollingMs(): number{

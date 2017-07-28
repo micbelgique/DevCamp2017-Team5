@@ -51,7 +51,7 @@ namespace FamiDesk.Mobile.App.MobileAppService
         }
     }
 
-    public class DatabaseInitializer : CreateDatabaseIfNotExists<MasterDetailContext>
+    public class DatabaseInitializer : DropCreateDatabaseAlways<MasterDetailContext>
     {
         protected override void Seed(MasterDetailContext context)
         {
