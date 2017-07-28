@@ -186,6 +186,11 @@
     <Compile Include="DataObjects\Event.cs" />
     <Compile Include="DataObjects\Person.cs" />
     <Compile Include="DataObjects\User.cs" />
+    <Compile Include="Migrations\201707282108437_InitialCreate.cs" />
+    <Compile Include="Migrations\201707282108437_InitialCreate.Designer.cs">
+      <DependentUpon>201707282108437_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MasterDetailContext.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -204,6 +209,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\FamiDeskMobileApp - Web Deploy.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707282108437_InitialCreate.resx">
+      <DependentUpon>201707282108437_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

@@ -1,0 +1,7 @@
+{
+  "/tables": {
+    // "target": "http://localhost:51799/tables",
+    "target": "http://famideskmobileapp.azurewebsites.net/tables",
+    "secure": false
+  }
+}

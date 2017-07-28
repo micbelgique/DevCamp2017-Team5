@@ -259,3 +259,48 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+#############
+# Angular App Ignores
+#############
+
+# compiled output
+/Famidesk/FamiDesk.Web/dist
+/Famidesk/FamiDesk.Web/tmp
+/Famidesk/FamiDesk.Web/out-tsc
+
+# dependencies
+/Famidesk/FamiDesk.Web/node_modules
+
+# IDEs and editors
+/Famidesk/FamiDesk.Web/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/Famidesk/FamiDesk.Web/.sass-cache
+/Famidesk/FamiDesk.Web/connect.lock
+/Famidesk/FamiDesk.Web/coverage
+/Famidesk/FamiDesk.Web/libpeerconnection.log
+npm-debug.log
+testem.log
+/Famidesk/FamiDesk.Web/typings
+
+# e2e
+/Famidesk/FamiDesk.Web/e2e/*.js
+/Famidesk/FamiDesk.Web/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
