@@ -55,19 +55,21 @@ namespace FamiDesk.Mobile.App.MobileAppService
     {
         protected override void Seed(MasterDetailContext context)
         {
-            List<Item> items = new List<Item>
+            List<Person> persons = new List<Person>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is a nice description" },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is a nice description" },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is a nice description" },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is a nice description" },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is a nice description" },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is a nice description" },
-            };
+				new Person {
+					Id = Guid.NewGuid().ToString(),
+					FirstName = "Ginette",
+					LastName ="Nova" },
+				new Person {
+					Id = Guid.NewGuid().ToString(),
+					FirstName = "Albert",
+					LastName ="Tremblais" }
+               };
 
-            foreach (Item item in items)
+            foreach (Person person in persons)
             {
-                context.Set<Item>().Add(item);
+                context.Set<Person>().Add(person);
             }
 
             base.Seed(context);
