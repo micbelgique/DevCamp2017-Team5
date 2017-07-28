@@ -43,6 +43,7 @@
     <Compile Include="Helpers\ObservableRangeCollection.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Models\BaseDataObject.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
