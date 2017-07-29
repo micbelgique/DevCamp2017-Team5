@@ -30,12 +30,15 @@ namespace FamiDesk.Mobile.App.Services
 
         public async Task ScanTask(CancellationToken token)
         {
+
             try
             {
-                if (_scanningTask == null || _scanningTask.IsCompleted || _scanningTask.IsCanceled || _scanningTask.IsFaulted)
+                if (_scanningTask == null || _scanningTask.IsCompleted || _scanningTask.IsCanceled ||
+                    _scanningTask.IsFaulted)
                 {
                     _scanningTask = Task.Run(async () =>
                     {
+                        _scanning = true;
                         while (_scanning)
                         {
                             token.ThrowIfCancellationRequested();
@@ -44,6 +47,10 @@ namespace FamiDesk.Mobile.App.Services
                         }
                     }, token);
                     await _scanningTask;
+                }
+                else
+                {
+                    _scanning = true;
                 }
             }
             catch (Exception e)
@@ -59,10 +66,14 @@ namespace FamiDesk.Mobile.App.Services
         private void OnAdapterOnDeviceDiscovered(object sender, DeviceEventArgs e)
         {
             //beacon found !
-            if (e.Device.Name.ToUpper().Contains("KONTAKT"))
+            if (e.Device?.Name?.ToUpper().Contains("KONTAKT") == true)
             {
                 if (Beacons.Any(b => b.Id.ToUpper() == e.Device.Id.ToString().ToUpper()) == false)
+                {
                     Beacons.Add(new BeaconModel(e.Device.Id.ToString(), e.Device.Name));
+                    var notifService = DependencyService.Get<INotificationService>();
+                    notifService.Push("Beacon found!", $"Id: {e.Device.Id}");
+                }
             }
 
             //Device.BeginInvokeOnMainThread(() => {

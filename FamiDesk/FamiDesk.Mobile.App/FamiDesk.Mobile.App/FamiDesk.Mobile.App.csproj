@@ -42,6 +42,7 @@
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\ObservableRangeCollection.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Messages\NotificationMessage.cs" />
     <Compile Include="Models\BaseDataObject.cs" />
     <Compile Include="Models\BeaconModel.cs" />
     <Compile Include="Models\EventInfo.cs" />
