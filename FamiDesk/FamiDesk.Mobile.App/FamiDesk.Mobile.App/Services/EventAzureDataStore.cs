@@ -2,7 +2,7 @@
 
 namespace FamiDesk.Mobile.App.Services
 {
-    public class EventAzureDataStore : AzureDataStore<EventInfo>
+    public class EventInfoAzureDataStore : AzureDataStore<EventInfo>
     {
     }
 }
