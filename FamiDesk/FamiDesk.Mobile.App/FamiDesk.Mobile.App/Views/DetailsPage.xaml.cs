@@ -40,7 +40,7 @@ namespace FamiDesk.Mobile.App.Views
 
 		private async void CheckOut_Clicked(object sender, EventArgs e)
 		{
-			await viewModel.EventDataStore.AddItemAsync(new EventInfo
+			var result = await viewModel.EventDataStore.AddItemAsync(new EventInfo
 			{
 				Id = Guid.NewGuid().ToString(),
 				Comment = viewModel.Comment,
