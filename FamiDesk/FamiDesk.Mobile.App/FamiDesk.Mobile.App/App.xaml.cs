@@ -12,7 +12,7 @@ namespace FamiDesk.Mobile.App
     public partial class App : Application
     {
         //MUST use HTTPS, neglecting to do so will result in runtime errors on iOS
-        public static bool AzureNeedsSetup => AzureMobileAppUrl == "https://CONFIGURE-THIS-URL.azurewebsites.net";
+        public static bool OfflineMode => true;
 
         public static string AzureMobileAppUrl = "https://FamiDeskMobileApp.azurewebsites.net";
         public static IDictionary<string, string> LoginParameters => null;
@@ -21,8 +21,12 @@ namespace FamiDesk.Mobile.App
         {
 			InitializeComponent();
 
-            if (AzureNeedsSetup)
-                DependencyService.Register<MockDataStore>();
+            if (OfflineMode)
+            {
+                DependencyService.Register<PersonMockDataStore>();
+                DependencyService.Register<EventInfoMockDataStore>();
+                DependencyService.Register<BluetoothLEService>();
+            }
             else
             {
                 DependencyService.Register<PersonAzureDataStore>();
@@ -35,8 +39,8 @@ namespace FamiDesk.Mobile.App
 
         public static void SetMainPage()
         {
-            if (!AzureNeedsSetup && !Settings.IsLoggedIn)
-            {
+            //if (OfflineMode && !Settings.IsLoggedIn)
+            //{
                 //Current.MainPage = new NavigationPage(new BeaconsPage());
                 Current.MainPage = new NavigationPage(new AllPersonPage());
                 //Current.MainPage = new NavigationPage(new LoginPage())
@@ -44,11 +48,11 @@ namespace FamiDesk.Mobile.App
                 //    BarBackgroundColor = (Color) Current.Resources["Primary"],
                 //    BarTextColor = Color.White
                 //};
-            }
-            else
-            {
-                GoToMainPage();
-            }
+            //}
+            //else
+            //{
+            //    GoToMainPage();
+            //}
         }
 
         public static void GoToMainPage()

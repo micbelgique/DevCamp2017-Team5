@@ -15,19 +15,62 @@ namespace FamiDesk.Mobile.App.ViewModels
     public class AllPersonViewModel : BaseViewModel
     {
         public ObservableRangeCollection<Person> Persons { get; set; }
-        public Command LoadPersonsCommand { get; set; }
+        public Person PersonSelected { get; set; }
+        public Command LoadPersonsCommand { get; }
+        public Command OpenDetailCommand { get; }
+        public Command DisplayingCommand { get; }
+        private INavigation Navigation { get; }
+        private Person openPersonDetailDelayed = null;
 
-        public AllPersonViewModel()
+        public AllPersonViewModel() : this(null)
+        { }
+        public AllPersonViewModel(INavigation navigation)
         {
             Title = "Persons";
             Persons = new ObservableRangeCollection<Person>();
             LoadPersonsCommand = new Command(async () => await ExecuteLoadPersonsCommand());
+            OpenDetailCommand = new Command(async () => await ExecuteOpenDetailCommand());
+            DisplayingCommand = new Command(async () => await ExecuteDisplayingCommand());
+            Navigation = navigation;
 
-            MessagingCenter.Subscribe<App>(this, "NotificationClicked", personId =>
+            MessagingCenter.Subscribe<App, NotificationClickedMessage>(this, "NotificationClicked", async (sender, notif) =>
+             {
+                 PersonSelected = Persons.SingleOrDefault(p => p.Id == notif.Id);
+                 await ExecuteOpenDetailCommand();
+             });
+
+        }
+
+        private async Task ExecuteDisplayingCommand()
+        {
+            if (openPersonDetailDelayed != null)
             {
-                //TODO: load person detail or sugjest person    
-            });
-            
+                await ExecuteOpenDetailCommand();
+                openPersonDetailDelayed = null;
+            }
+        }
+
+        private async Task ExecuteOpenDetailCommand()
+        {
+            if (IsBusy)
+            {
+                openPersonDetailDelayed = PersonSelected;
+                return;
+            }
+            IsBusy = true;
+            try
+            {
+                // Navigate to our edit page
+                await Navigation.PushAsync(new DetailsPage(PersonSelected));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task ExecuteLoadPersonsCommand()
@@ -40,7 +83,7 @@ namespace FamiDesk.Mobile.App.ViewModels
             try
             {
                 Persons.Clear();
-                var persons =  await PersonDataStore.GetItemsAsync(true);
+                var persons = await PersonDataStore.GetItemsAsync(true);
                 Persons.ReplaceRange(persons);
             }
             catch (Exception ex)

@@ -55,8 +55,10 @@
     <Compile Include="Services\AzureDataStore.cs" />
     <Compile Include="Services\BluetoothLEService.cs" />
     <Compile Include="Services\EventAzureDataStore.cs" />
+    <Compile Include="Services\EventInfoMockDataStore.cs" />
     <Compile Include="Services\IDataStore.cs" />
     <Compile Include="Services\MockDataStore.cs" />
+    <Compile Include="Services\PersonMockDataStore.cs" />
     <Compile Include="Services\UserAzureDataStore.cs" />
     <Compile Include="Services\PersonAzureDataStore.cs" />
     <Compile Include="ViewModels\AllBeaconsViewModel.cs" />

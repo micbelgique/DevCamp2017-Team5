@@ -17,23 +17,29 @@ namespace FamiDesk.Mobile.App.Views
         public AllPersonPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new AllPersonViewModel();
+            BindingContext = viewModel = new AllPersonViewModel(Navigation);
         }
 
         protected override void OnAppearing()
         {
+            viewModel.DisplayingCommand.Execute(null);
             base.OnAppearing();
 
             if (!viewModel.Persons.Any())
                 viewModel.LoadPersonsCommand.Execute(null);
         }
 
-		private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-		{
-			//var tp = TappedEventArgs
-			var person = e.Parameter as Person;
-			if(person != null)
-				App.Current.MainPage.Navigation.PushAsync(new DetailsPage(person));
-		}
-	}
+        private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+        {
+            //var person = e.Parameter as Person;
+            //if(person != null)
+            //App.Current.MainPage.Navigation.PushAsync(new DetailsPage(person));
+
+            if (e.Parameter is Person person)
+            {
+                viewModel.PersonSelected = person;
+                viewModel.OpenDetailCommand.Execute(null);
+            }
+        }
+    }
 }
