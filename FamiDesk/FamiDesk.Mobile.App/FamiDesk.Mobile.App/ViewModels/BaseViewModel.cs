@@ -12,7 +12,7 @@ namespace FamiDesk.Mobile.App.ViewModels
         /// Get the azure service instance
         /// </summary>
         public IDataStore<Person> PersonDataStore => DependencyService.Get<IDataStore<Person>>();
-        public IDataStore<Event> EventDataStore => DependencyService.Get<IDataStore<Event>>();
+        public IDataStore<EventInfo> EventDataStore => DependencyService.Get<IDataStore<EventInfo>>();
 
         bool _isBusy = false;
         public bool IsBusy

@@ -17,7 +17,7 @@
             get => _lastName;
             set => SetProperty(ref _lastName, value);
         }
-
+        
         public string BeaconId
         {
             get => _beaconId;

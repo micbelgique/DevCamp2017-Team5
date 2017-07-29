@@ -2,7 +2,7 @@
 
 namespace FamiDesk.Mobile.App.Models
 {
-    public class Event : BaseDataObject
+    public class EventInfo : BaseDataObject
     {
         private string _type;
         private DateTime _date;

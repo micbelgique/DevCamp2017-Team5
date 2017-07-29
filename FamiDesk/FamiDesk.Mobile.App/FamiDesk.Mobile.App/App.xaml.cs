@@ -36,11 +36,12 @@ namespace FamiDesk.Mobile.App
         {
             if (!AzureNeedsSetup && !Settings.IsLoggedIn)
             {
-                Current.MainPage = new NavigationPage(new LoginPage())
-                {
-                    BarBackgroundColor = (Color) Current.Resources["Primary"],
-                    BarTextColor = Color.White
-                };
+                Current.MainPage = new NavigationPage(new AllPersonPage());
+                //Current.MainPage = new NavigationPage(new LoginPage())
+                //{
+                //    BarBackgroundColor = (Color) Current.Resources["Primary"],
+                //    BarTextColor = Color.White
+                //};
             }
             else
             {
