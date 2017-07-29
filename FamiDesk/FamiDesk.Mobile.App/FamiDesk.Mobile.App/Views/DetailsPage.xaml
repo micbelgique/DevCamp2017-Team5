@@ -39,11 +39,11 @@
 			<StackLayout Orientation="Horizontal" WidthRequest="100" Padding="20,10,20,10">
 				<Label Text="Address : " ></Label>
 				<Label Text="{Binding Address}" FontSize="Medium" TextColor="LightGray"/>
-			</StackLayout>
-			<StackLayout Orientation="Horizontal" Padding="30">
-				<Button Text="Check In" />
-				<Button Text="Check Out" />
 			</StackLayout>-->
+			<StackLayout Orientation="Horizontal" Padding="30">
+				<Button Text="Check In" Clicked="CheckIn_Clicked"/>
+				<Button Text="Check Out" Clicked="CheckOut_Clicked" />
+			</StackLayout>
 			
 		</StackLayout>		
 	</ContentPage.Content>
