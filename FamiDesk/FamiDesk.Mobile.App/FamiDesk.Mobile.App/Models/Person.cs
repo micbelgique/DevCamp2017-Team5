@@ -7,6 +7,7 @@
         private string _beaconId = string.Empty;
         private string _avatar = string.Empty;
         private string _address = string.Empty;
+        private string _familyInformations = string.Empty;
 
 		public string FirstName
         {
@@ -36,6 +37,12 @@
 		{
 			get => _address;
 			set => SetProperty(ref _address, value);
+		}
+
+		public string FamilyInformations
+		{
+			get => _familyInformations;
+			set => SetProperty(ref _familyInformations, value);
 		}
 	}
 }
