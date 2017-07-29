@@ -16,7 +16,7 @@ export class EventInfoService {
     public getEvents(): Observable<EventInfo[]>{
         if (!this.events) {
             this.events = new BehaviorSubject<EventInfo[]>([]);
-
+            
             Observable.interval(this.config.pollingMs).subscribe(_ =>{
             this.http.get(this.config.serverBaseUrl + 'eventinfo'/*?ZUMO-API-VERSION=2.0.0'*/)
                 .map(p => p.json())
