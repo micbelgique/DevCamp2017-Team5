@@ -2,11 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:FamiDesk.Mobile.App.ViewModels;assembly=FamiDesk.Mobile.App"
-             Title="{Binding Title}"
+			 xmlns:local="clr-namespace:FamiDesk.Mobile.App;assembly=FamiDesk.Mobile.App"
+             Title="{Binding Title}"			 
              x:Class="FamiDesk.Mobile.App.Views.AllPersonPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="ItemsListView"
+	<ContentPage.BindingContext>
+		<vm:AllPersonViewModel />
+	</ContentPage.BindingContext>
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.Content>
+		<StackLayout>
+			<ListView x:Name="ItemsListView"
                       ItemsSource="{Binding Persons}"
                       VerticalOptions="FillAndExpand"
                       HasUnevenRows="true"
@@ -14,23 +23,24 @@
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       CachingStrategy="RecycleElement">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding FirstName}"
-                                       LineBreakMode="NoWrap"
-                                       Style="{DynamicResource ListItemTextStyle}"
-                                       FontSize="16"/>
-                                <Label Text="{Binding LastName}"
-                                       LineBreakMode="NoWrap"
-                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="13"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </ContentPage.Content>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Orientation="Horizontal">
+								<Image Source="{Binding Avatar, Converter={StaticResource Base64ToImageConverter}}}" />
+								<StackLayout Orientation="Vertical">									
+									<StackLayout Padding="10" Orientation="Horizontal">
+										<Label Text="{Binding FirstName}" />
+										<Label Text="{Binding LastName}" />
+									</StackLayout>
+									<Label Text="{Binding Address}" />
+								</StackLayout>
+							</StackLayout>
+
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
 </ContentPage>
