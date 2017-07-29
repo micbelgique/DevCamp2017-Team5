@@ -19,6 +19,7 @@ namespace FamiDesk.Mobile.App.Services
                         Id = "FFBC9B72-5166-4C06-A547-7626386FFE9B",
                         FirstName = "Ginette",
                         LastName = "Nova",
+                        BeaconId = "00000000-0000-0000-0000-e3b34d9da20a",
                         Avatar = ginetteAvatar,
                         Address = "Avenue des Bassins, 64, 1er étage, 7000 Mons, Belgique"
                     },
@@ -27,6 +28,7 @@ namespace FamiDesk.Mobile.App.Services
                         Id = "EED7114E-CC42-4598-8FA6-AAC67A81C9B3",
                         FirstName = "Albert",
                         LastName = "Tremblais",
+                        BeaconId = "00000000-0000-0000-0000-d394799af6d0",
                         Avatar = albertAvatar,
                         Address = "16 Rue Francine Fromont, 69120 Vaulx-en-Velin, France"
                     }

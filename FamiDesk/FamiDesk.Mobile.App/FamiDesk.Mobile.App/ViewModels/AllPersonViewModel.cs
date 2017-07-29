@@ -35,7 +35,7 @@ namespace FamiDesk.Mobile.App.ViewModels
 
             MessagingCenter.Subscribe<App, NotificationClickedMessage>(this, "NotificationClicked", async (sender, notif) =>
              {
-                 PersonSelected = Persons.SingleOrDefault(p => p.Id == notif.Id);
+                 openPersonDetailDelayed = PersonSelected = Persons.SingleOrDefault(p => p.Id == notif.Id);
                  await ExecuteOpenDetailCommand();
              });
 
