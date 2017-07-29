@@ -1,12 +1,13 @@
-﻿export interface Person {
-    deleted: boolean;
-    updatedAt: Date;
-    createdAt: Date;
-    version: string;
-    id: string;
-    beaconId: string;
-    lastName: string;
-    firstName: string;
-    avatar: string;
-	address: string;
-}
+﻿    export interface Person {
+        deleted: boolean;
+        updatedAt: Date;
+        createdAt: Date;
+        version: string;
+        id: string;
+        beaconId: string;
+        lastName: string;
+        firstName: string;
+        avatar: string;
+		address: string;
+		familyInformations: string;
+    }

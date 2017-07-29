@@ -8,12 +8,12 @@ using FamiDesk.Mobile.App.Models;
 
 namespace FamiDesk.Mobile.App.Services
 {
-    public class MockDataStore : IDataStore<Item>
+    public abstract class MockDataStore<T> : IDataStore<T> where T : BaseDataObject
     {
-        bool isInitialized;
-        List<Item> items;
+        protected bool isInitialized;
+        protected List<T> items = new List<T>();
 
-        public async Task<bool> AddItemAsync(Item item)
+        public async Task<bool> AddItemAsync(T item)
         {
             await InitializeAsync();
 
@@ -22,42 +22,42 @@ namespace FamiDesk.Mobile.App.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Item item)
+        public async Task<bool> UpdateItemAsync(T item)
         {
             await InitializeAsync();
 
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            var _item = items.Where((T arg) => arg.Id == item.Id).FirstOrDefault();
             items.Remove(_item);
             items.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(Item item)
+        public async Task<bool> DeleteItemAsync(T item)
         {
             await InitializeAsync();
 
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            var _item = items.Where((T arg) => arg.Id == item.Id).FirstOrDefault();
             items.Remove(_item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<Item> GetItemAsync(string id)
+        public async Task<T> GetItemAsync(string id)
         {
             await InitializeAsync();
 
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false)
         {
             await InitializeAsync();
 
             return await Task.FromResult(items);
         }
 
-        public async Task<IEnumerable<Item>> WhereAsync(Expression<Func<Item, bool>> predicate, bool forceRefresh = false)
+        public async Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> predicate, bool forceRefresh = false)
         {
             await InitializeAsync();
 
@@ -75,28 +75,28 @@ namespace FamiDesk.Mobile.App.Services
             return Task.FromResult(true);
         }
 
-        public async Task InitializeAsync()
-        {
-            if (isInitialized)
-                return;
+        public abstract Task InitializeAsync();
 
-            items = new List<Item>();
-            var _items = new List<Item>
-            {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Buy some cat food", Description="The cats are hungry"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Learn F#", Description="Seems like a functional idea"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Learn to play guitar", Description="Noted"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Buy some new candles", Description="Pine and cranberry for that winter feel"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Complete holiday shopping", Description="Keep it a secret!"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Finish a todo list", Description="Done"},
-            };
+        //{
+        //    if (isInitialized)
+        //        return;
 
-            foreach (Item item in _items)
-            {
-                items.Add(item);
-            }
+        //    var _items = new List<Item>
+        //    {
+        //        new Item { Id = Guid.NewGuid().ToString(), Text = "Buy some cat food", Description="The cats are hungry"},
+        //        new Item { Id = Guid.NewGuid().ToString(), Text = "Learn F#", Description="Seems like a functional idea"},
+        //        new Item { Id = Guid.NewGuid().ToString(), Text = "Learn to play guitar", Description="Noted"},
+        //        new Item { Id = Guid.NewGuid().ToString(), Text = "Buy some new candles", Description="Pine and cranberry for that winter feel"},
+        //        new Item { Id = Guid.NewGuid().ToString(), Text = "Complete holiday shopping", Description="Keep it a secret!"},
+        //        new Item { Id = Guid.NewGuid().ToString(), Text = "Finish a todo list", Description="Done"},
+        //    };
 
-            isInitialized = true;
-        }
+        //    foreach (T item in _items)
+        //    {
+        //        items.Add(item);
+        //    }
+
+        //    isInitialized = true;
+        //}
     }
 }

@@ -39,7 +39,8 @@ namespace FamiDesk.Mobile.App.MobileAppService.Models
 				LastName = "Nova",
 				Avatar = ginetteAvatar,
 				BeaconId = "00000000-0000-0000-0000-e3b34d9da20a",
-				Address = "Avenue des Bassins, 64, 1er étage, 7000 Mons, Belgique"
+				Address = "Avenue des Bassins, 64, 1er étage, 7000 Mons, Belgique",
+				FamilyInformations = "Diabetes insipidus"
 			};
 
 			var albert = new Person
@@ -49,7 +50,8 @@ namespace FamiDesk.Mobile.App.MobileAppService.Models
 				LastName = "Tremblais",
 				Avatar = albertAvatar,
 				BeaconId = "00000000-0000-0000-0000-d394799af6d0",
-				Address = "16 Rue Francine Fromont, 69120 Vaulx-en-Velin, France"
+				Address = "16 Rue Francine Fromont, 69120 Vaulx-en-Velin, France",
+				FamilyInformations = "Milk allergy"
 			};
 
 			context.Users.Add(kine);
