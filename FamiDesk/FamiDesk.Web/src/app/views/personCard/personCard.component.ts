@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Person } from '../../models/Person.model';
 
 @Component({
@@ -6,6 +7,14 @@ import { Person } from '../../models/Person.model';
   templateUrl: 'personCard.component.html',
   styleUrls: ['personCard.component.css'],
 })
-export class PersonCardComponent {
+export class PersonCardComponent implements OnChanges {
   @Input() person: Person;
+  imgUrl: SafeUrl;
+  constructor(private domSanitizer: DomSanitizer) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['person'] && this.person) {
+      this.imgUrl = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + this.person.avatar);
+    }
+  }
 }
