@@ -12,7 +12,7 @@ namespace FamiDesk.Mobile.App
     public partial class App : Application
     {
         //MUST use HTTPS, neglecting to do so will result in runtime errors on iOS
-        public static bool OfflineMode => true;
+        public static bool OfflineMode => false;
 
         public static string AzureMobileAppUrl = "https://FamiDeskMobileApp.azurewebsites.net";
         public static IDictionary<string, string> LoginParameters => null;
