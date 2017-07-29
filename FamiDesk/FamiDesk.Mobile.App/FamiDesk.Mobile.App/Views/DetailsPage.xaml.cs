@@ -29,7 +29,7 @@ namespace FamiDesk.Mobile.App.Views
 		{
 			await viewModel.EventDataStore.AddItemAsync(new EventInfo {
 				Id = Guid.NewGuid().ToString(),
-				Comment = "RAS",
+				Comment = viewModel.Comment,
 				Date = DateTime.UtcNow,
 				PersonId = personId,
 				UserId = "C1ED6A6D-F804-43CE-9975-25D093F76422",
@@ -43,7 +43,7 @@ namespace FamiDesk.Mobile.App.Views
 			await viewModel.EventDataStore.AddItemAsync(new EventInfo
 			{
 				Id = Guid.NewGuid().ToString(),
-				Comment = "RAS",
+				Comment = viewModel.Comment,
 				Date = DateTime.UtcNow,
 				PersonId = personId,
 				UserId = "C1ED6A6D-F804-43CE-9975-25D093F76422",

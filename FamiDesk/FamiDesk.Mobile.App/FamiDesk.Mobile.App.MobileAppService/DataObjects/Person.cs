@@ -13,6 +13,7 @@ namespace FamiDesk.Mobile.App.MobileAppService.DataObjects
 		public string BeaconId { get; set; }
 		public string Avatar { get; set; }
 		public string Address { get; set; }
+		public string FamilyInformations { get; set; }
 
 	}
 }
