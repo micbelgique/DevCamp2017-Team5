@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FamiDesk.Mobile.App.Messages;
 using FamiDesk.Mobile.App.Models;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
@@ -71,8 +72,7 @@ namespace FamiDesk.Mobile.App.Services
                 if (Beacons.Any(b => b.Id.ToUpper() == e.Device.Id.ToString().ToUpper()) == false)
                 {
                     Beacons.Add(new BeaconModel(e.Device.Id.ToString(), e.Device.Name));
-                    var notifService = DependencyService.Get<INotificationService>();
-                    notifService.Push("Beacon found!", $"Id: {e.Device.Id}");
+                   MessagingCenter.Send(this, "NotificationMessage", new NotificationMessage("Beacon found!", $"Id: {e.Device.Id}"));
                 }
             }
 

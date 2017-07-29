@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.App;
+using FamiDesk.Mobile.App.Messages;
 using FamiDesk.Mobile.App.Services;
 using Xamarin.Forms;
 
