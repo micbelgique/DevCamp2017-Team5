@@ -7,10 +7,10 @@ namespace FamiDesk.Mobile.App.Models
         private string _type;
         private DateTime _date;
         private string _comment;
-        private Person _person;
+        private string _personId;
+        private string _userId;
 
-//        private User _user;
-        public string Type
+		public string Type
         {
             get => _type;
             set => SetProperty(ref _type, value);
@@ -28,10 +28,16 @@ namespace FamiDesk.Mobile.App.Models
             set => SetProperty(ref _comment, value);
         }
 
-        public Person Person1
-        {
-            get => _person;
-            set => SetProperty(ref _person, value);
+        public string PersonId
+		{
+            get => _personId;
+            set => SetProperty(ref _personId, value);
         }
-    }
+
+		public string UserId
+		{
+			get => _userId;
+			set => SetProperty(ref _userId, value);
+		}
+	}
 }

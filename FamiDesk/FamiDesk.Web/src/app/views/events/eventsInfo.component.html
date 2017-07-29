@@ -1,1 +1,4 @@
-﻿<div>COUCOU</div>
+﻿<div>COUCOU :-)</div>
+<div *ngIf="person">{{person.firstName + ' ' + person.lastName}}</div>
+
+<div *ngFor="let eventInfo of eventInfos">{{eventInfo.date | date:'dd/MM/yyyy'}}</div>
