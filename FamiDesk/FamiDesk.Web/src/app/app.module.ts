@@ -18,9 +18,15 @@ import { PersonsComponent } from 'app/views/persons/persons.component';
 import { EventInfoService } from 'app/services/EventInfoService';
 import { EventsInfoComponent } from 'app/views/events/eventsInfo.component';
 import { PersonCardComponent } from 'app/views/personCard/personCard.component';
+import { UserService } from "app/services/UserService";
 
 @NgModule({
-  declarations: [AppComponent, PersonsComponent, EventsInfoComponent, PersonCardComponent],
+    declarations: [
+        AppComponent,
+        PersonsComponent,
+        EventsInfoComponent,
+        PersonCardComponent
+    ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -31,7 +37,10 @@ import { PersonCardComponent } from 'app/views/personCard/personCard.component';
       { path: 'events/:personId', component: EventsInfoComponent },
     ]),
   ],
-  providers: [PersonService, EventInfoService, { provide: ConfigurationService, useClass: ConfigurationServiceProd }],
+  providers: [PersonService,
+      EventInfoService,
+      UserService,
+ { provide: ConfigurationService, useClass: ConfigurationServiceProd }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
