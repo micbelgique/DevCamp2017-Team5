@@ -7,6 +7,7 @@ using Android.Support.V4.App;
 using FamiDesk.Mobile.App.Messages;
 using FamiDesk.Mobile.App.Services;
 using Xamarin.Forms;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace FamiDesk.Mobile.App.Droid
 {
@@ -16,14 +17,15 @@ namespace FamiDesk.Mobile.App.Droid
         private const int NotificationId = 9000;
         protected override void OnCreate(Bundle bundle)
         {
-            TabLayoutResource = Resource.Layout.Tabbar;
+			TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+			ImageCircleRenderer.Init();
 
-            LoadApplication(new App());
+			LoadApplication(new App());
 
             //MessagingCenter.Unsubscribe<BluetoothLEService>();
             MessagingCenter.Subscribe<NotificationMessage>(this, "NotificationMessage", message => {

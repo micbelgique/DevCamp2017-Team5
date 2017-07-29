@@ -19,7 +19,7 @@ namespace FamiDesk.Mobile.App
 
         public App()
         {
-            InitializeComponent();
+			InitializeComponent();
 
             if (AzureNeedsSetup)
                 DependencyService.Register<MockDataStore>();
@@ -37,14 +37,15 @@ namespace FamiDesk.Mobile.App
         {
             if (!AzureNeedsSetup && !Settings.IsLoggedIn)
             {
-                Current.MainPage = new NavigationPage(new BeaconsPage());
-                //Current.MainPage = new NavigationPage(new AllPersonPage());
-                //Current.MainPage = new NavigationPage(new LoginPage())
-                //{
-                //    BarBackgroundColor = (Color) Current.Resources["Primary"],
-                //    BarTextColor = Color.White
-                //};
-            }
+                //Current.MainPage = new NavigationPage(new BeaconsPage());
+                Current.MainPage = new NavigationPage(new AllPersonPage());
+				//Current.MainPage = new NavigationPage(new AllPersonPage());
+				//Current.MainPage = new NavigationPage(new LoginPage())
+				//{
+				//    BarBackgroundColor = (Color) Current.Resources["Primary"],
+				//    BarTextColor = Color.White
+				//};
+			}
             else
             {
                 GoToMainPage();
