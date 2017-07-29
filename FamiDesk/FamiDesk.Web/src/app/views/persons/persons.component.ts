@@ -2,7 +2,6 @@
 import { PersonService } from "../../services/PersonService";
 import { Person } from "../../models/Person.model";
 import { EventInfoService } from "app/services/EventInfoService";
-import {ButtonModule} from 'primeng/primeng';
 @Component({
     templateUrl: 'persons.component.html'
 })
@@ -15,8 +14,7 @@ export class PersonsComponent implements OnInit {
         private eventService: EventInfoService
     ) { }
 
-    
-    ngOnInit(): void {
+        ngOnInit(): void {
         this.personService
             .getPersons()
             .subscribe(p => this.persons = p);
