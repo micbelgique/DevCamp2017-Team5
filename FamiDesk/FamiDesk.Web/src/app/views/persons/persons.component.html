@@ -1,3 +1,5 @@
 ﻿<div *ngFor="let person of persons">
-  <a [routerLink]="['/events/' + person.id]">{{person.firstName + ' ' + person.lastName}}</a>
+  <!-- <a [routerLink]="['/events/' + person.id]">{{person.firstName + ' ' + person.lastName}}</a> -->
+  <appPersonCard [person]="person"></appPersonCard>
+  <button pButton type="button" class="ui-button-secondary" [label]="buttonLabel"></button>
 </div>
