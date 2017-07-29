@@ -9,7 +9,7 @@ namespace FamiDesk.Mobile.App.Models
     public class BeaconModel : BaseDataObject
     {
         private string _name;
-        private DateTime _discoveredDate;
+        private DateTime _lastDiscoveredDate;
 
         public string Name
         {
@@ -17,10 +17,10 @@ namespace FamiDesk.Mobile.App.Models
             set => SetProperty(ref _name, value);
         }
 
-        public DateTime DiscoveredDate
+        public DateTime LastDiscoveredDate
         {
-            get => _discoveredDate;
-            set => SetProperty(ref _discoveredDate, value);
+            get => _lastDiscoveredDate;
+            set => SetProperty(ref _lastDiscoveredDate, value);
         }
 
         public BeaconModel()
@@ -30,7 +30,7 @@ namespace FamiDesk.Mobile.App.Models
         {
             Id = id;
             _name = name;
-            DiscoveredDate = DateTime.Now;
+            LastDiscoveredDate = DateTime.Now;
         }
     }
 }
