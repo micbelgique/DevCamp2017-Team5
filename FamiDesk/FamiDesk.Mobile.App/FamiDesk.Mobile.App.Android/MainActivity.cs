@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.Media;
 using Android.OS;
 using Android.Support.V4.App;
 using FamiDesk.Mobile.App.Messages;
+using FamiDesk.Mobile.App.Models;
 using FamiDesk.Mobile.App.Services;
 using Xamarin.Forms;
 using ImageCircle.Forms.Plugin.Droid;
@@ -19,17 +22,23 @@ namespace FamiDesk.Mobile.App.Droid
         private const int NotificationId = 9000;
         protected override void OnCreate(Bundle bundle)
         {
-			TabLayoutResource = Resource.Layout.Tabbar;
+            TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            //catch all exceptions
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                var ex = e.ExceptionObject as Exception;
+            };
 
             HandleExtras();
 
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-			ImageCircleRenderer.Init();
+            ImageCircleRenderer.Init();
 
-			LoadApplication(new App());
+            LoadApplication(new App());
 
             //MessagingCenter.Unsubscribe<BluetoothLEService>();
             MessagingCenter.Subscribe<BluetoothLEService, NotificationMessage>(this, "NotificationMessage", (sender, message) =>
@@ -58,7 +67,7 @@ namespace FamiDesk.Mobile.App.Droid
         }
 
 
-        private void ShowNotification(string title, string content, KeyValuePair<string, string> extra)
+        private async void ShowNotification(string title, string content, KeyValuePair<string, string> extra)
         {
             Bundle extraBundle = new Bundle();
             extraBundle.PutString(extra.Key, extra.Value);
@@ -72,6 +81,8 @@ namespace FamiDesk.Mobile.App.Droid
             PendingIntent pendingIntent =
                 PendingIntent.GetActivity(this, pendingIntentId, intent, PendingIntentFlags.OneShot);
 
+
+
             // Build the notification:
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .SetAutoCancel(true)                    // Dismiss from the notif. area when clicked
@@ -82,6 +93,14 @@ namespace FamiDesk.Mobile.App.Droid
                 .SetSmallIcon(Resource.Drawable.beacon_icon_lrg)  // Display this icon
                                                                   //.SetExtras(extraBundle)
                 .SetContentText(content); // The message to display.
+
+            var person = await DependencyService.Get<IDataStore<Person>>().GetItemAsync(extra.Value);
+            if (person != null)
+            {
+                byte[] img = Convert.FromBase64String(person.Avatar);
+                Bitmap largeIcon = BitmapFactory.DecodeByteArray(img, 0, img.Length);
+                builder.SetLargeIcon(largeIcon);
+            }
 
             // Build the notification:
             Notification notification = builder.Build();
