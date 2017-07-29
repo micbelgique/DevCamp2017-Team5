@@ -20,6 +20,7 @@ namespace FamiDesk.Mobile.App.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         private const int NotificationId = 9000;
+
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -61,7 +62,8 @@ namespace FamiDesk.Mobile.App.Droid
                 string id = extra.GetString("Id");
                 if (string.IsNullOrWhiteSpace(id) == false)
                 {
-                    MessagingCenter.Send((App)Xamarin.Forms.Application.Current, "NotificationClicked", new NotificationClickedMessage(id));
+                    MessagingCenter.Send((App)Xamarin.Forms.Application.Current, "NotificationClicked",
+                        new NotificationClickedMessage(id));
                 }
             }
         }
@@ -81,17 +83,15 @@ namespace FamiDesk.Mobile.App.Droid
             PendingIntent pendingIntent =
                 PendingIntent.GetActivity(this, pendingIntentId, intent, PendingIntentFlags.OneShot);
 
-
-
             // Build the notification:
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .SetAutoCancel(true)                    // Dismiss from the notif. area when clicked
                 .SetContentIntent(pendingIntent)  // Start 2nd activity when the intent is clicked.
                 .SetContentTitle(title)      // Set its title
-                                             //.SetNumber(count)                       // Display the count in the Content Info
+                 //.SetNumber(count)                       // Display the count in the Content Info
                 .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
                 .SetSmallIcon(Resource.Drawable.beacon_icon_lrg)  // Display this icon
-                                                                  //.SetExtras(extraBundle)
+                //.SetExtras(extraBundle)
                 .SetContentText(content); // The message to display.
 
             var person = await DependencyService.Get<IDataStore<Person>>().GetItemAsync(extra.Value);
