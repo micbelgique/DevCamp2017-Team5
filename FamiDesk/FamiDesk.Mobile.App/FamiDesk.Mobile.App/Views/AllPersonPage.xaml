@@ -27,14 +27,18 @@
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell >
-							<StackLayout Orientation="Horizontal" Padding="5,5,5,5">
-								<controls:CircleImage  Source="{Binding Avatar, Converter={StaticResource Base64ToImageConverter}}}" Aspect="AspectFit" HeightRequest="100" WidthRequest="100"/>
+							<StackLayout Orientation="Horizontal" Padding="5,5,5,5" >
+								<StackLayout.GestureRecognizers>
+									<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}"></TapGestureRecognizer>
+								</StackLayout.GestureRecognizers>
+									
+								<controls:CircleImage  Source="{Binding Avatar, Converter={StaticResource Base64ToImageConverter}}}" Aspect="AspectFit" HeightRequest="80" WidthRequest="80"/>
 								<StackLayout Orientation="Vertical">									
 									<StackLayout Orientation="Horizontal">
 										<Label Text="{Binding FirstName}" />
 										<Label Text="{Binding LastName}" FontAttributes="Bold" />
 									</StackLayout>
-									<Label Padding="10" Text="{Binding Address}" FontAttributes="Italic" />
+									<Label Margin="10,0,0,0" Text="{Binding Address}" FontAttributes="Italic" />
 								</StackLayout>
 							</StackLayout>
 						</ViewCell>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 using FamiDesk.Mobile.App.Models;
@@ -54,6 +55,13 @@ namespace FamiDesk.Mobile.App.Services
             await InitializeAsync();
 
             return await Task.FromResult(items);
+        }
+
+        public async Task<IEnumerable<Item>> WhereAsync(Expression<Func<Item, bool>> predicate, bool forceRefresh = false)
+        {
+            await InitializeAsync();
+
+            return await Task.FromResult(items.Where(predicate.Compile()));
         }
 
         public Task<bool> PullLatestAsync()
