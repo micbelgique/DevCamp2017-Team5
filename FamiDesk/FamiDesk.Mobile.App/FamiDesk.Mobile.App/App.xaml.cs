@@ -27,6 +27,7 @@ namespace FamiDesk.Mobile.App
             {
                 DependencyService.Register<PersonAzureDataStore>();
                 DependencyService.Register<EventAzureDataStore>();
+                DependencyService.Register<BluetoothLEService>();
             }
 
             SetMainPage();

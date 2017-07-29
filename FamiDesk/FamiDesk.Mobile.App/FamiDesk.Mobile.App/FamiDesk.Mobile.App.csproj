@@ -43,38 +43,44 @@
     <Compile Include="Helpers\ObservableRangeCollection.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Models\BaseDataObject.cs" />
+    <Compile Include="Models\BeaconModel.cs" />
     <Compile Include="Models\EventInfo.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Authenticator.cs" />
     <Compile Include="Services\AzureDataStore.cs" />
+    <Compile Include="Services\BluetoothLEService.cs" />
     <Compile Include="Services\EventAzureDataStore.cs" />
     <Compile Include="Services\IDataStore.cs" />
     <Compile Include="Services\MockDataStore.cs" />
     <Compile Include="Services\PersonAzureDataStore.cs" />
-    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AllBeaconsViewModel.cs" />
+    <Compile Include="ViewModels\old\AboutViewModel.cs" />
     <Compile Include="ViewModels\AllPersonViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\ItemDetailViewModel.cs" />
-    <Compile Include="ViewModels\ItemsViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="Views\AboutPage.xaml.cs">
+    <Compile Include="ViewModels\old\ItemDetailViewModel.cs" />
+    <Compile Include="ViewModels\old\ItemsViewModel.cs" />
+    <Compile Include="ViewModels\old\LoginViewModel.cs" />
+    <Compile Include="Views\BeaconsPage.xaml.cs">
+      <DependentUpon>BeaconsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\old\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AllPersonPage.xaml.cs">
       <DependentUpon>AllPersonPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ItemDetailPage.xaml.cs">
+    <Compile Include="Views\old\ItemDetailPage.xaml.cs">
       <DependentUpon>ItemDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ItemsPage.xaml.cs">
+    <Compile Include="Views\old\ItemsPage.xaml.cs">
       <DependentUpon>ItemsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginPage.xaml.cs">
+    <Compile Include="Views\old\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NewItemPage.xaml.cs">
+    <Compile Include="Views\old\NewItemPage.xaml.cs">
       <DependentUpon>NewItemPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -83,23 +89,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\AboutPage.xaml">
+    <EmbeddedResource Include="Views\old\AboutPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ItemDetailPage.xaml">
+    <EmbeddedResource Include="Views\old\ItemDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ItemsPage.xaml">
+    <EmbeddedResource Include="Views\old\ItemsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\LoginPage.xaml">
+    <EmbeddedResource Include="Views\old\LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\NewItemPage.xaml">
+    <EmbeddedResource Include="Views\old\NewItemPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -113,6 +119,12 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.BLE, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plugin.BLE.1.3.0\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.BLE.Abstractions, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plugin.BLE.1.3.0\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.Connectivity, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Connectivity.2.3.0\lib\portable-net45+wp80+win8+wpa81\Plugin.Connectivity.dll</HintPath>
@@ -154,6 +166,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\AllPersonPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\BeaconsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
