@@ -68,14 +68,7 @@
     <Compile Include="Views\BeaconsPage.xaml.cs">
       <DependentUpon>BeaconsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\old\AboutPage.xaml.cs">
     <Compile Include="ConverterBase64ImageSource.cs" />
-    <Compile Include="ViewModels\ItemDetailViewModel.cs" />
-    <Compile Include="ViewModels\ItemsViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="Views\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\AllPersonPage.xaml.cs">
       <DependentUpon>AllPersonPage.xaml</DependentUpon>
     </Compile>
