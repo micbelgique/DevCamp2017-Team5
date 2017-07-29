@@ -40,7 +40,7 @@ import { UserService } from "app/services/UserService";
   providers: [PersonService,
       EventInfoService,
       UserService,
- { provide: ConfigurationService, useClass: ConfigurationServiceProd }],
+ { provide: ConfigurationService, useClass: ConfigurationServiceLocal }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
