@@ -75,13 +75,19 @@ namespace FamiDesk.Mobile.App.Services
         {
             return Task.Run(() =>
             {
-                lock (lockObject)
+                try
                 {
-                    var toRemove = Beacons.Where(b => (DateTime.Now - b.LastDiscoveredDate).TotalSeconds > 30);
-                    foreach (var beacon in toRemove)
+                    lock (lockObject)
                     {
-                        Beacons.Remove(beacon);
+                        var toRemove = Beacons.Where(b => (DateTime.Now - b.LastDiscoveredDate).TotalSeconds > 30);
+                        foreach (var beacon in toRemove)
+                        {
+                            Beacons.Remove(beacon);
+                        }
                     }
+                }
+                catch (Exception e)
+                {
                 }
             });
         }
@@ -92,36 +98,45 @@ namespace FamiDesk.Mobile.App.Services
             await ScanTask(new CancellationToken());
         }
 
-        private void OnAdapterOnDeviceDiscovered(object sender, DeviceEventArgs e)
+        private async void OnAdapterOnDeviceDiscovered(object sender, DeviceEventArgs e)
         {
-            //beacon found !
-            if (e.Device?.Name?.ToUpper().Contains("KONTAKT") == true)
+            try
             {
-                //check if the beacon has been already discovered
-                var beacon = Beacons.FirstOrDefault(b => b.Id.ToUpper() == e.Device.Id.ToString().ToUpper());
-                if (beacon == null)
+                //beacon found !
+                if (e.Device?.Name?.ToUpper().Contains("KONTAKT") == true)
                 {
-                    //Add the beacon on the list
-                    lock (lockObject)
+                    //check if the beacon has been already discovered
+                    var beacon = Beacons.FirstOrDefault(b => b.Id.ToUpper() == e.Device.Id.ToString().ToUpper());
+                    if (beacon == null)
                     {
-                        Beacons.Add(new BeaconModel(e.Device.Id.ToString(), e.Device.Name));
-                    }
+                        //Add the beacon on the list
+                        lock (lockObject)
+                        {
+                            Beacons.Add(new BeaconModel(e.Device.Id.ToString(), e.Device.Name));
+                        }
 
-                    //check if one person match the beacon id
-                    //var test = _personDataStore.GetItemsAsync(true).Result;
-                    var person = _personDataStore.WhereAsync(p => p.BeaconId.ToUpper() == e.Device.Id.ToString().ToUpper(), true).Result.FirstOrDefault();
-                    if (person != null)
+                        //check if one person match the beacon id
+                        var persons = await _personDataStore.GetItemsAsync(true);
+                        var person =
+                            persons.FirstOrDefault(p => p.BeaconId?.ToUpper() == e.Device.Id.ToString().ToUpper());
+                        if (person != null)
+                        {
+                            MessagingCenter.Send(this, "NotificationMessage",
+                                new NotificationMessage($"Welcome to {person.FirstName} house!",
+                                    "Proceed to check-in ?",
+                                    new KeyValuePair<string, string>("Id", person.Id)));
+                        }
+                    }
+                    else
                     {
-                        MessagingCenter.Send(this, "NotificationMessage",
-                            new NotificationMessage($"Welcome to {person.FirstName} house!", "Proceed to check-in ?",
-                                new KeyValuePair<string, string>("Id", person.Id)));
+                        //Update the last discoveredDate of the beacon
+                        beacon.LastDiscoveredDate = DateTime.Now;
                     }
                 }
-                else
-                {
-                    //Update the last discoveredDate of the beacon
-                    beacon.LastDiscoveredDate = DateTime.Now;
-                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }
