@@ -1,4 +1,4 @@
-    export interface Person {
+﻿    export interface Person {
         deleted: boolean;
         updatedAt: Date;
         createdAt: Date;
@@ -7,4 +7,6 @@
         beaconId: string;
         lastName: string;
         firstName: string;
+        avatar: string;
+		address: string;
     }

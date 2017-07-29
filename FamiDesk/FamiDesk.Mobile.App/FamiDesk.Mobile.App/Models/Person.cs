@@ -2,11 +2,13 @@
 {
     public class Person : BaseDataObject
     {
-        private string _firstName;
-        private string _lastName;
-        private string _beaconId;
+        private string _firstName = string.Empty;
+        private string _lastName = string.Empty;
+        private string _beaconId = string.Empty;
+        private string _avatar = string.Empty;
+        private string _address = string.Empty;
 
-        public string FirstName
+		public string FirstName
         {
             get => _firstName;
             set => SetProperty(ref _firstName, value);
@@ -23,5 +25,17 @@
             get => _beaconId;
             set => SetProperty(ref _beaconId, value);
         }
-    }
+
+		public string Avatar
+		{
+			get => _avatar;
+			set => SetProperty(ref _avatar, value);
+		}
+
+		public string Address
+		{
+			get => _address;
+			set => SetProperty(ref _address, value);
+		}
+	}
 }
