@@ -9,6 +9,7 @@ import { EventInfoService } from "app/services/EventInfoService";
 export class PersonsComponent implements OnInit {
 
     private persons: Person[];
+    private buttonLabel = 'Test Label';
 
     constructor(private personService: PersonService,
         private eventService: EventInfoService

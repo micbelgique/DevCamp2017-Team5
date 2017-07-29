@@ -27,6 +27,7 @@ namespace FamiDesk.Mobile.App
             {
                 DependencyService.Register<PersonAzureDataStore>();
                 DependencyService.Register<EventInfoAzureDataStore>();
+                DependencyService.Register<BluetoothLEService>();
             }
 
             SetMainPage();
@@ -36,7 +37,8 @@ namespace FamiDesk.Mobile.App
         {
             if (!AzureNeedsSetup && !Settings.IsLoggedIn)
             {
-                Current.MainPage = new NavigationPage(new AllPersonPage());
+                Current.MainPage = new NavigationPage(new BeaconsPage());
+                //Current.MainPage = new NavigationPage(new AllPersonPage());
                 //Current.MainPage = new NavigationPage(new LoginPage())
                 //{
                 //    BarBackgroundColor = (Color) Current.Resources["Primary"],
