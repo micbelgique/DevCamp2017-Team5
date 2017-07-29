@@ -26,18 +26,17 @@
                       CachingStrategy="RecycleElement">
 				<ListView.ItemTemplate>
 					<DataTemplate>
-						<ViewCell>
-							<StackLayout Orientation="Horizontal">
+						<ViewCell >
+							<StackLayout Orientation="Horizontal" Padding="5,5,5,5">
 								<controls:CircleImage  Source="{Binding Avatar, Converter={StaticResource Base64ToImageConverter}}}" Aspect="AspectFit" HeightRequest="100" WidthRequest="100"/>
 								<StackLayout Orientation="Vertical">									
-									<StackLayout Padding="10" Orientation="Horizontal">
+									<StackLayout Orientation="Horizontal">
 										<Label Text="{Binding FirstName}" />
-										<Label Text="{Binding LastName}" />
+										<Label Text="{Binding LastName}" FontAttributes="Bold" />
 									</StackLayout>
-									<Label Text="{Binding Address}" />
+									<Label Padding="10" Text="{Binding Address}" FontAttributes="Italic" />
 								</StackLayout>
 							</StackLayout>
-
 						</ViewCell>
 					</DataTemplate>
 				</ListView.ItemTemplate>
