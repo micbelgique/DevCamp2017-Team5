@@ -3,7 +3,7 @@ import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import { ConfigurationService } from "./ConfigurationService";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { EventInfo } from "app/models/Event.model";
+import { EventInfo } from "app/models/EventInfo.model";
 
 @Injectable()
 export class EventInfoService {

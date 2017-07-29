@@ -10,24 +10,27 @@ import { PersonService } from "./services/PersonService";
 import 'rxjs/Rx';
 import { ConfigurationService, ConfigurationServiceProd, ConfigurationServiceLocal } from "./services/ConfigurationService";
 import { PersonsComponent } from "app/views/persons/persons.component";
-import { EventService } from "app/services/EventService";
+import { EventInfoService } from "app/services/EventInfoService";
+import { EventsInfoComponent } from "app/views/events/eventsInfo.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    PersonsComponent
+      PersonsComponent,
+      EventsInfoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot([
-      {path: '', component: PersonsComponent}
+      {path: '', component: PersonsComponent},
+      {path: 'events/:personId', component: EventsInfoComponent}
     ])
   ],
   providers: [
       PersonService,
-      EventService,
+      EventInfoService,
     { provide: ConfigurationService, useClass: ConfigurationServiceProd }
   ],
   bootstrap: [AppComponent]
