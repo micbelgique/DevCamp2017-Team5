@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -14,9 +15,14 @@ namespace FamiDesk.Mobile.App.Services
 {
     public class BluetoothLEService
     {
+        public event Action<string> DebugInfo;
+
+        private object lockObject = new object();
+
         public ObservableCollection<BeaconModel> Beacons { get; set; } = new ObservableCollection<BeaconModel>();
-        private IBluetoothLE _ble;
-        private IAdapter _adapter;
+        private readonly IBluetoothLE _ble;
+        private readonly IAdapter _adapter;
+        private IDataStore<Person> _personDataStore;
         private bool _scanning;
         private Task _scanningTask;
 
@@ -27,6 +33,7 @@ namespace FamiDesk.Mobile.App.Services
             _adapter.DeviceDiscovered += OnAdapterOnDeviceDiscovered;
             _adapter.ScanTimeoutElapsed += OnAdapter_ScanTimeoutElapsed;
             _adapter.ScanTimeout = 10_000;
+            _personDataStore = DependencyService.Get<IDataStore<Person>>();
         }
 
         public async Task ScanTask(CancellationToken token)
@@ -44,6 +51,9 @@ namespace FamiDesk.Mobile.App.Services
                         {
                             token.ThrowIfCancellationRequested();
                             await Task.Delay(250, token);
+                            DebugInfo?.Invoke($"Clear out of range beacons");
+                            await ClearOutOfRangeBeacon();
+                            DebugInfo?.Invoke($"Start scanning ... ({DateTime.Now:T})");
                             await _adapter.StartScanningForDevicesAsync(cancellationToken: token);
                         }
                     }, token);
@@ -56,29 +66,78 @@ namespace FamiDesk.Mobile.App.Services
             }
             catch (Exception e)
             {
+                DebugInfo?.Invoke(e.Message);
+                await ScanTask(new CancellationToken());
             }
+        }
+
+        private Task ClearOutOfRangeBeacon()
+        {
+            return Task.Run(() =>
+            {
+                try
+                {
+                    lock (lockObject)
+                    {
+                        var toRemove = Beacons.Where(b => (DateTime.Now - b.LastDiscoveredDate).TotalSeconds > 30);
+                        foreach (var beacon in toRemove)
+                        {
+                            Beacons.Remove(beacon);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                }
+            });
         }
 
         private async void OnAdapter_ScanTimeoutElapsed(object sender, System.EventArgs e)
         {
+            DebugInfo?.Invoke($"Start Timeout !");
             await ScanTask(new CancellationToken());
         }
 
-        private void OnAdapterOnDeviceDiscovered(object sender, DeviceEventArgs e)
+        private async void OnAdapterOnDeviceDiscovered(object sender, DeviceEventArgs e)
         {
-            //beacon found !
-            if (e.Device?.Name?.ToUpper().Contains("KONTAKT") == true)
+            try
             {
-                if (Beacons.Any(b => b.Id.ToUpper() == e.Device.Id.ToString().ToUpper()) == false)
+                //beacon found !
+                if (e.Device?.Name?.ToUpper().Contains("KONTAKT") == true)
                 {
-                    Beacons.Add(new BeaconModel(e.Device.Id.ToString(), e.Device.Name));
-                   MessagingCenter.Send(this, "NotificationMessage", new NotificationMessage("Beacon found!", $"Id: {e.Device.Id}"));
+                    //check if the beacon has been already discovered
+                    var beacon = Beacons.FirstOrDefault(b => b.Id.ToUpper() == e.Device.Id.ToString().ToUpper());
+                    if (beacon == null)
+                    {
+                        //Add the beacon on the list
+                        lock (lockObject)
+                        {
+                            Beacons.Add(new BeaconModel(e.Device.Id.ToString(), e.Device.Name));
+                        }
+
+                        //check if one person match the beacon id
+                        var persons = await _personDataStore.GetItemsAsync(true);
+                        var person =
+                            persons.FirstOrDefault(p => p.BeaconId?.ToUpper() == e.Device.Id.ToString().ToUpper());
+                        if (person != null)
+                        {
+                            MessagingCenter.Send(this, "NotificationMessage",
+                                new NotificationMessage($"Welcome to {person.FirstName} house!",
+                                    "Proceed to check-in ?",
+                                    new KeyValuePair<string, string>("Id", person.Id)));
+                        }
+                    }
+                    else
+                    {
+                        //Update the last discoveredDate of the beacon
+                        beacon.LastDiscoveredDate = DateTime.Now;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
 
-            //Device.BeginInvokeOnMainThread(() => {
-            //    MessagingCenter.Send<TickedMessage>(message, "TickedMessage");
-            //});
+            }
         }
     }
 }

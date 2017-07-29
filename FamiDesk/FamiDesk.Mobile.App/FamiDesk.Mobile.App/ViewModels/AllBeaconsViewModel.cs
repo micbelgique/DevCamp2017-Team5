@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace FamiDesk.Mobile.App.ViewModels
 {
-    public class AllBeaconsViewModel
+    public class AllBeaconsViewModel : BaseViewModel
     {
         private readonly BluetoothLEService _bluetoothService;
         public ObservableCollection<BeaconModel> Beacons { get; set; }
@@ -18,7 +18,9 @@ namespace FamiDesk.Mobile.App.ViewModels
         public AllBeaconsViewModel()
         {
             _bluetoothService = DependencyService.Get<BluetoothLEService>();
+            _bluetoothService.DebugInfo += s => Title = s;
             Beacons = _bluetoothService.Beacons;
+            Title = "Beacon Scan";
         }
     }
 }

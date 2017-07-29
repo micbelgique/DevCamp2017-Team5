@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FamiDesk.Mobile.App.ViewModels;assembly=FamiDesk.Mobile.App"
+			 xmlns:local="clr-namespace:FamiDesk.Mobile.App;assembly=FamiDesk.Mobile.App"
+			 xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             Title="{Binding Title}"
+             x:Class="FamiDesk.Mobile.App.Views.DetailsPage">
+	<ContentPage.BindingContext>
+		<vm:DetailsViewModel />
+	</ContentPage.BindingContext>
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.Content>
+		<StackLayout Orientation="Vertical">
+			<controls:CircleImage Margin="0,20,0,0" Source="{Binding Avatar, Converter={StaticResource Base64ToImageConverter}}}" Aspect="AspectFit" HeightRequest="120" WidthRequest="120"/>
+			<TableView Intent="Data">
+				<TableRoot>
+					<TableSection>
+						<EntryCell Label="Firstname" Text="{Binding FirstName}" IsEnabled="False"  />
+						<EntryCell Label="Lastname" Text="{Binding LastName}" IsEnabled="False" />
+						<EntryCell Label="Address" Text="{Binding Address}" IsEnabled="False" />
+					</TableSection>					
+				</TableRoot>
+			</TableView>
+			
+			
+			<!--<StackLayout Orientation="Horizontal" Padding="20,10,20,10">
+				<Label Text="Firstname : " WidthRequest="100" ></Label>
+				<Label Text="{Binding FirstName}" FontSize="Medium" TextColor="LightGray"/>				
+			</StackLayout>
+			<StackLayout Orientation="Horizontal" WidthRequest="100" Padding="20,10,20,10">
+				<Label Text="Lastname : " ></Label>
+				<Label Text="{Binding LastName}"  FontSize="Medium" TextColor="LightGray"/>
+			</StackLayout>
+			<StackLayout Orientation="Horizontal" WidthRequest="100" Padding="20,10,20,10">
+				<Label Text="Address : " ></Label>
+				<Label Text="{Binding Address}" FontSize="Medium" TextColor="LightGray"/>
+			</StackLayout>
+			<StackLayout Orientation="Horizontal" Padding="30">
+				<Button Text="Check In" />
+				<Button Text="Check Out" />
+			</StackLayout>-->
+			
+		</StackLayout>		
+	</ContentPage.Content>
+</ContentPage>
