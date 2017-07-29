@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FamiDesk.Mobile.App.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using FamiDesk.Mobile.App.Models;
 
 namespace FamiDesk.Mobile.App.Views
 {
@@ -26,5 +27,13 @@ namespace FamiDesk.Mobile.App.Views
             if (!viewModel.Persons.Any())
                 viewModel.LoadPersonsCommand.Execute(null);
         }
-    }
+
+		private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+		{
+			//var tp = TappedEventArgs
+			var person = e.Parameter as Person;
+			if(person != null)
+				App.Current.MainPage.Navigation.PushAsync(new DetailsPage(person));
+		}
+	}
 }
