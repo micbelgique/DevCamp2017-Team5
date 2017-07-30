@@ -1,0 +1,17 @@
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: center;
+}
+
+.name {
+  color: rgb(35, 160, 225);
+  text-decoration: none;
+}

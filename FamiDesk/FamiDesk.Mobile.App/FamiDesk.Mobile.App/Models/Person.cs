@@ -13,6 +13,7 @@ namespace FamiDesk.Mobile.App.Models
         private string _avatar = string.Empty;
         private string _address = string.Empty;
         public List<string> UserIn { get; } = new List<string>();
+        private string _familyInformations = string.Empty;
 
         public string FirstName
         {
@@ -38,11 +39,17 @@ namespace FamiDesk.Mobile.App.Models
             set => SetProperty(ref _avatar, value);
         }
 
-        public string Address
-        {
-            get => _address;
-            set => SetProperty(ref _address, value);
-        }
+		public string Address
+		{
+			get => _address;
+			set => SetProperty(ref _address, value);
+		}
+
+		public string FamilyInformations
+		{
+			get => _familyInformations;
+			set => SetProperty(ref _familyInformations, value);
+		}
 
         public bool ImHere => UserIn?.Any(u => u == App.CurrentUserId) == true;
 

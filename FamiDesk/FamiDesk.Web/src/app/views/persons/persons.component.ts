@@ -3,7 +3,8 @@ import { PersonService } from "../../services/PersonService";
 import { Person } from "../../models/Person.model";
 import { EventInfoService } from "app/services/EventInfoService";
 @Component({
-    templateUrl: 'persons.component.html'
+    templateUrl: 'persons.component.html',
+    styleUrls: ['./persons.component.css'],
 })
 export class PersonsComponent implements OnInit {
 

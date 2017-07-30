@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigurationService } from './ConfigurationService';
@@ -11,6 +11,7 @@ export class PersonService {
 
   private persons: BehaviorSubject<Person[]>;
 
+  //public getPersons = this.getPeople;
   public getPersons(): Observable<Person[]> {
     if (!this.persons) {
       this.persons = new BehaviorSubject<Person[]>([]);
@@ -19,10 +20,22 @@ export class PersonService {
         this.fetchPerson();
       });
     }
-    return this.persons;
+    return this.persons.asObservable();
   }
 
   private fetchPerson(): void {
-    this.http.get(this.config.serverBaseUrl + 'person').map(p => p.json()).subscribe(p => this.persons.next(p));
+      this.http.get(this.config.serverBaseUrl + 'person').map(p => p.json()).subscribe(p => this.persons.next(p));
+  }
+
+  private fetchPeople(): Observable<Person[]> {
+      return this.http.get(this.config.serverBaseUrl + 'person').map(p => p.json());
+  }
+
+  private beginPolling(): Observable<Person[]> {
+      return Observable.interval(this.config.pollingMs).switchMap(() => this.fetchPeople());
+  }
+
+  public getPeople(): Observable<Person[]> {
+      return Observable.merge(this.fetchPeople(), this.beginPolling());
   }
 }

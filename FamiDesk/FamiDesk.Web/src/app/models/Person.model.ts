@@ -9,4 +9,5 @@
         firstName: string;
         avatar: string;
 		address: string;
+		familyInformations: string;
     }

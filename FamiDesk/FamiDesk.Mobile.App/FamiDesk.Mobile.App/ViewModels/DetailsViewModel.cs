@@ -107,6 +107,7 @@ namespace FamiDesk.Mobile.App.ViewModels
             FirstName = person.FirstName;
             LastName = person.LastName;
             Title = $"{FirstName} {LastName}";
+            FamilyInformations = person.FamilyInformations;
             Address = person.Address;
             Avatar = person.Avatar;
             IsIn = eventInfos.Where(e => e.PersonId == PersonId && e.UserId == App.CurrentUserId)

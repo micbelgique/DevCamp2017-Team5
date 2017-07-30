@@ -1,4 +1,8 @@
-﻿<div *ngIf="person">
-  <a [routerLink]="['/events/' + person.id]">{{person.firstName + ' ' + person.lastName}}</a>
-  <img [src]="imgUrl">
+﻿<div class="column" *ngIf="person">
+   <a [routerLink]="['/events/',person.id]"> 
+  <img class="avatar" [src]="imgUrl">
+  </a>
+  <div class="name">
+    <h2>{{person.firstName}}</h2>
+  </div>
 </div>

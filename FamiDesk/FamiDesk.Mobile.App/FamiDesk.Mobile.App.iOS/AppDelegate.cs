@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace FamiDesk.Mobile.App.iOS
 {
@@ -13,6 +14,7 @@ namespace FamiDesk.Mobile.App.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init();
+			ImageCircleRenderer.Init();
 			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 			LoadApplication(new App());
 

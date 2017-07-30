@@ -23,6 +23,7 @@
                         <EntryCell Label="Firstname" Text="{Binding FirstName}" HorizontalTextAlignment="End" IsEnabled="False"  />
                         <EntryCell Label="Lastname" Text="{Binding LastName}" HorizontalTextAlignment="End" IsEnabled="False" />
                         <EntryCell Label="Address" Text="{Binding Address}" HorizontalTextAlignment="End" IsEnabled="False" />
+                        <EntryCell Label="Informations" Text="{Binding FamilyInformations}" IsEnabled="False" />						
                         <EntryCell Label="Comment" Text="{Binding Comment}" />
                     </TableSection>
                 </TableRoot>

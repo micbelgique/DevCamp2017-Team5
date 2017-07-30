@@ -27,7 +27,7 @@ namespace FamiDesk.Mobile.App.MobileAppService
                 .ApplyTo(config);
 
             // Use Entity Framework Code First to create database tables based on your DbContext
-            Database.SetInitializer(new DatabaseInitializer());
+            //Database.SetInitializer(new DatabaseInitializer());
 			using (var context = new MasterDetailContext())
 				Seeder.Seed(context);
             // To prevent Entity Framework from modifying your database schema, use a null database initializer

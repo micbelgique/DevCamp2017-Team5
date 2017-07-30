@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/primeng';
+import { DataListModule } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { PersonService } from './services/PersonService';
@@ -32,6 +33,7 @@ import { UserService } from "app/services/UserService";
     FormsModule,
     HttpModule,
     ButtonModule,
+    DataListModule,
     RouterModule.forRoot([
       { path: '', component: PersonsComponent },
       { path: 'events/:personId', component: EventsInfoComponent },
@@ -40,7 +42,7 @@ import { UserService } from "app/services/UserService";
   providers: [PersonService,
       EventInfoService,
       UserService,
- { provide: ConfigurationService, useClass: ConfigurationServiceLocal }],
+ { provide: ConfigurationService, useClass: ConfigurationServiceProd }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,13 +1,76 @@
-﻿<div>COUCOU :-)</div>
-<div *ngIf="person">{{person.firstName + ' ' + person.lastName}}</div>
-
-<div *ngFor="let eventInfo of eventInfos">{{eventInfo.date | date:'dd/MM/yyyy'}}</div>
-
-<div class="ui-g">
+﻿<div class="ui-g" *ngIf="person">
   <div class="ui-g-8">
-    <div *ngIf="person">{{person.firstName + ' ' + person.lastName}}</div>
+    <div class="ui-g">
+      <div class="ui-g-3">
+        {{person.firstName}}
+      </div>
+      <div class="ui-g-3">
+        {{person.lastName}}
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        {{person.address}}
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="label">Beacon : </label>
+        {{person.beaconId}}
+      </div>
+    </div>
   </div>
   <div class="ui-g-4">
     <img [src]="imgUrl">
   </div>
 </div>
+
+<!--<div *ngFor="let eventInfo of eventInfos">{{eventInfo.date | date:'dd/MM/yyyy'}}</div>-->
+<p-dataList [value]="appointments" [paginator]="true" [rows]="10">
+  <p-header>
+    Appointments
+  </p-header>
+  <ng-template let-appointment pTemplate="item">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-2" style="text-align:center;">
+        <!-- image --><img [src]="buildSafeImgUrl(appointment.userAvatar)" style="border-radius:50%; overflow:hidden;" />
+      </div>
+      <div class="ui-g-5">
+        <table>
+          <tr>
+            <td>
+              <div style="text-align:right"><img src="../../../assets/enter.svg" style="width:30px;" /></div>
+            </td>
+            <td>
+              <div style="text-align:left">
+                <span *ngIf="appointment.checkinDate">
+                  {{appointment.checkinDate | date:'dd/MM/yyyy HH:mm:ss'}}
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div style="text-align:right"><img src="../../../assets/exit.svg" style="width:30px;" /></div>
+            </td>
+            <td>
+              <div style="text-align:left">
+                <span *ngIf="appointment.checkoutDate">
+                  {{appointment.checkoutDate | date:'dd/MM/yyyy HH:mm:ss'}}
+                </span>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <!--<div class="ui-g-1" style="text-align:right"><img src="../../../assets/enter.svg" style="width:30px;" /></div>
+        <div class="ui-g-11" style="text-align:left">{{appointment.checkinDate | date:'dd/MM/yyyy HH:mm:ss'}}</div>
+        <div class="ui-g-1" style="text-align:right"><img src="../../../assets/exit.svg" style="width:30px;" /></div>
+        <div class="ui-g-11" style="text-align:left">{{appointment.checkoutDate | date:'dd/MM/yyyy HH:mm:ss'}}</div>-->
+      </div>
+      <div class="ui-g-4">
+        {{appointment.comment}}
+      </div>
+    </div>
+    <hr/>
+  </ng-template>
+</p-dataList>
