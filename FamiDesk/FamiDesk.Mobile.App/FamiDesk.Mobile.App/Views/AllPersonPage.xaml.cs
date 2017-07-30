@@ -17,7 +17,8 @@ namespace FamiDesk.Mobile.App.Views
         public AllPersonPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new AllPersonViewModel(Navigation);
+            BindingContext = viewModel = DependencyService.Get<AllPersonViewModel>(); // new AllPersonViewModel(Navigation);
+            viewModel.Navigation = Navigation;
         }
 
         protected override void OnAppearing()

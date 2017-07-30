@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FamiDesk.Mobile.App.Helpers;
 using FamiDesk.Mobile.App.Services;
+using FamiDesk.Mobile.App.ViewModels;
 using FamiDesk.Mobile.App.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,14 +13,16 @@ namespace FamiDesk.Mobile.App
     public partial class App : Application
     {
         //MUST use HTTPS, neglecting to do so will result in runtime errors on iOS
-        public static bool OfflineMode => true;
+        public static bool OfflineMode => false;
+
+        public static string CurrentUserId => "C1ED6A6D-F804-43CE-9975-25D093F76422";
 
         public static string AzureMobileAppUrl = "https://FamiDeskMobileApp.azurewebsites.net";
         public static IDictionary<string, string> LoginParameters => null;
 
         public App()
         {
-			InitializeComponent();
+            InitializeComponent();
 
             if (OfflineMode)
             {
@@ -34,6 +37,8 @@ namespace FamiDesk.Mobile.App
                 DependencyService.Register<BluetoothLEService>();
             }
 
+            DependencyService.Register<AllPersonViewModel>();
+
             SetMainPage();
         }
 
@@ -41,13 +46,13 @@ namespace FamiDesk.Mobile.App
         {
             //if (OfflineMode && !Settings.IsLoggedIn)
             //{
-                //Current.MainPage = new NavigationPage(new BeaconsPage());
-                Current.MainPage = new NavigationPage(new AllPersonPage());
-                //Current.MainPage = new NavigationPage(new LoginPage())
-                //{
-                //    BarBackgroundColor = (Color) Current.Resources["Primary"],
-                //    BarTextColor = Color.White
-                //};
+            //Current.MainPage = new NavigationPage(new BeaconsPage());
+            Current.MainPage = new NavigationPage(new AllPersonPage());
+            //Current.MainPage = new NavigationPage(new LoginPage())
+            //{
+            //    BarBackgroundColor = (Color) Current.Resources["Primary"],
+            //    BarTextColor = Color.White
+            //};
             //}
             //else
             //{

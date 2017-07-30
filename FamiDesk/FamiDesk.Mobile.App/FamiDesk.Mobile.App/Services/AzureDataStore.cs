@@ -23,7 +23,7 @@ namespace FamiDesk.Mobile.App.Services
 
         public MobileServiceClient MobileService { get; set; }
 
-        public async Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false)
+        public virtual async Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false)
         {
             await InitializeAsync();
             if (forceRefresh)

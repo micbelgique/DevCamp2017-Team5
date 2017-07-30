@@ -63,8 +63,7 @@ namespace FamiDesk.Mobile.App.Droid
                 string id = extra.GetString("Id");
                 if (string.IsNullOrWhiteSpace(id) == false)
                 {
-                    //wait that the mainActivity is reloaded
-                    //await Task.Delay(5000);
+
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         MessagingCenter.Send((App)Xamarin.Forms.Application.Current, "NotificationClicked",

@@ -7,13 +7,13 @@
              Title="{Binding Title}"			 
              x:Class="FamiDesk.Mobile.App.Views.AllPersonPage">
     <ContentPage.Resources>
-		<ResourceDictionary>
-			<local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
-		</ResourceDictionary>
-	</ContentPage.Resources>
-	<ContentPage.Content>
-		<StackLayout>
-			<ListView x:Name="ItemsListView"
+        <ResourceDictionary>
+            <local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ItemsListView"
                       ItemsSource="{Binding Persons}"
                       VerticalOptions="FillAndExpand"
                       HasUnevenRows="true"
@@ -21,27 +21,28 @@
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       CachingStrategy="RecycleElement">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<ViewCell>
-							<StackLayout Orientation="Horizontal" Padding="5,5,5,5" >
-								<StackLayout.GestureRecognizers>
-									<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding }" CommandParameter="{Binding .}"></TapGestureRecognizer>
-								</StackLayout.GestureRecognizers>
-									
-								<controls:CircleImage  Source="{Binding Avatar, Converter={StaticResource Base64ToImageConverter}}}" Aspect="AspectFit" HeightRequest="80" WidthRequest="80"/>
-								<StackLayout Orientation="Vertical">									
-									<StackLayout Orientation="Horizontal">
-										<Label Text="{Binding FirstName}" />
-										<Label Text="{Binding LastName}" FontAttributes="Bold" />
-									</StackLayout>
-									<Label Margin="10,0,0,0" Text="{Binding Address}" FontAttributes="Italic" />
-								</StackLayout>
-							</StackLayout>
-						</ViewCell>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
-		</StackLayout>
-	</ContentPage.Content>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="5,5,5,5" >
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding }" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+
+                                <controls:CircleImage  Source="{Binding Avatar, Converter={StaticResource Base64ToImageConverter}}}" Aspect="AspectFit" HeightRequest="80" WidthRequest="80"/>
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding FirstName}" />
+                                        <Label Text="{Binding LastName}" FontAttributes="Bold" />
+                                    </StackLayout>
+                                    <Label Margin="10,0,0,0" Text="{Binding Address}" FontAttributes="Italic" />
+                                    <Label Margin="10,0,0,0" Text="Vous êtes ici !" IsVisible="{Binding ImHere}" FontAttributes="Bold" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

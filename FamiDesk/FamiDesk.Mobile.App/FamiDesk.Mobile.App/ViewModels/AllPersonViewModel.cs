@@ -19,28 +19,31 @@ namespace FamiDesk.Mobile.App.ViewModels
         public Command LoadPersonsCommand { get; }
         public Command OpenDetailCommand { get; }
         public Command DisplayingCommand { get; }
-        private INavigation Navigation { get; }
+        public INavigation Navigation { get; set; }
         private Person openPersonDetailDelayed = null;
 
-        public AllPersonViewModel() : this(null)
-        { }
-        public AllPersonViewModel(INavigation navigation)
+
+        public AllPersonViewModel()
         {
             Title = "Persons";
             Persons = new ObservableRangeCollection<Person>();
             LoadPersonsCommand = new Command(async () => await ExecuteLoadPersonsCommand());
             OpenDetailCommand = new Command(async () => await ExecuteOpenDetailCommand());
             DisplayingCommand = new Command(async () => await ExecuteDisplayingCommand());
-            Navigation = navigation;
 
             MessagingCenter.Subscribe<App, NotificationClickedMessage>(this, "NotificationClicked", async (sender, notif) =>
              {
-                 openPersonDetailDelayed = PersonSelected = Persons.SingleOrDefault(p => p.Id == notif.Id);
+                 //if (App.OfflineMode == false)
+                 //{
+                 //    //wait that the mainActivity is reloaded
+                 //    await Task.Delay(5000);
+                 //}
+
+                 PersonSelected = Persons.SingleOrDefault(p => p.Id == notif.Id);
                  await ExecuteOpenDetailCommand();
              });
 
         }
-
         private async Task ExecuteDisplayingCommand()
         {
             if (openPersonDetailDelayed != null)
@@ -84,6 +87,9 @@ namespace FamiDesk.Mobile.App.ViewModels
             {
                 Persons.Clear();
                 var persons = await PersonDataStore.GetItemsAsync(true);
+
+                persons = persons.OrderByDescending(p => p.UserIn.Count(u => u == App.CurrentUserId)).ToList();
+
                 Persons.ReplaceRange(persons);
             }
             catch (Exception ex)

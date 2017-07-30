@@ -23,6 +23,7 @@ namespace FamiDesk.Mobile.App.Services
         private readonly IBluetoothLE _ble;
         private readonly IAdapter _adapter;
         private IDataStore<Person> _personDataStore;
+        private IDataStore<EventInfo> _eventDataStore;
         private bool _scanning;
         private Task _scanningTask;
 
@@ -34,6 +35,7 @@ namespace FamiDesk.Mobile.App.Services
             _adapter.ScanTimeoutElapsed += OnAdapter_ScanTimeoutElapsed;
             _adapter.ScanTimeout = 10_000;
             _personDataStore = DependencyService.Get<IDataStore<Person>>();
+            _eventDataStore = DependencyService.Get<IDataStore<EventInfo>>();
         }
 
         public async Task ScanTask(CancellationToken token)
@@ -73,16 +75,41 @@ namespace FamiDesk.Mobile.App.Services
 
         private Task ClearOutOfRangeBeacon()
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 try
                 {
+                    var toRemove = Beacons.Where(b => (DateTime.Now - b.LastDiscoveredDate).TotalSeconds > 30).ToList();
+
                     lock (lockObject)
                     {
-                        var toRemove = Beacons.Where(b => (DateTime.Now - b.LastDiscoveredDate).TotalSeconds > 30);
                         foreach (var beacon in toRemove)
                         {
                             Beacons.Remove(beacon);
+                        }
+                    }
+
+                    //notify check-out
+                    foreach (var beacon in toRemove)
+                    {
+                        var persons = await _personDataStore.GetItemsAsync();
+                        var eventInfos = await _eventDataStore.GetItemsAsync();
+                        var person = persons.FirstOrDefault(p => p.BeaconId?.ToUpper() == beacon.Id.ToString().ToUpper());
+                        if (person != null)
+                        {
+                            var userEvents = eventInfos
+                                .Where(ev => ev.PersonId == person.Id && ev.UserId == App.CurrentUserId)
+                                .OrderByDescending(d => d.Date).ToList();
+                            var lastEvent = userEvents.FirstOrDefault();
+                            bool isIn = lastEvent.Type.ToUpper() == "CHECKIN";
+
+                            if (isIn)
+                            {
+                                MessagingCenter.Send(this, "NotificationMessage",
+                                    new NotificationMessage($"Dite au revoir à {person.FirstName} !",
+                                        "Procéder au check-Out ?",
+                                        new KeyValuePair<string, string>("Id", person.Id)));
+                            }
                         }
                     }
                 }
@@ -116,15 +143,24 @@ namespace FamiDesk.Mobile.App.Services
                         }
 
                         //check if one person match the beacon id
-                        var persons = await _personDataStore.GetItemsAsync(true);
-                        var person =
-                            persons.FirstOrDefault(p => p.BeaconId?.ToUpper() == e.Device.Id.ToString().ToUpper());
+                        var persons = await _personDataStore.GetItemsAsync();
+                        var eventInfos = await _eventDataStore.GetItemsAsync();
+                        var person = persons.FirstOrDefault(p => p.BeaconId?.ToUpper() == e.Device.Id.ToString().ToUpper());
                         if (person != null)
                         {
-                            MessagingCenter.Send(this, "NotificationMessage",
-                                new NotificationMessage($"Welcome to {person.FirstName} house!",
-                                    "Proceed to check-in ?",
-                                    new KeyValuePair<string, string>("Id", person.Id)));
+                            var userEvents = eventInfos
+                                .Where(ev => ev.PersonId == person.Id && ev.UserId == App.CurrentUserId)
+                                .OrderByDescending(d => d.Date).ToList();
+                            var lastEvent = userEvents.FirstOrDefault();
+                            bool isIn = lastEvent.Type.ToUpper() == "CHECKIN";
+
+                            if (isIn == false)
+                            {
+                                MessagingCenter.Send(this, "NotificationMessage",
+                                    new NotificationMessage($"Bienvenu chez {person.FirstName} !",
+                                        "Procéder au check-in ?",
+                                        new KeyValuePair<string, string>("Id", person.Id)));
+                            }
                         }
                     }
                     else
