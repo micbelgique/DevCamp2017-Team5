@@ -20,6 +20,7 @@ namespace FamiDesk.Mobile.App.ViewModels
         private string _address;
         private string _avatar;
         private string _comment;
+        private string _familyInformation;
         private bool _isIn;
         private bool _isOut;
 
@@ -52,6 +53,11 @@ namespace FamiDesk.Mobile.App.ViewModels
         {
             get => _comment;
             set => SetProperty(ref _comment, value);
+        }
+        public string FamilyInformations
+        {
+            get => _familyInformation;
+            set => SetProperty(ref _familyInformation, value);
         }
         public bool IsIn
         {
