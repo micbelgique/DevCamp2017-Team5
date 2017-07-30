@@ -93,4 +93,8 @@ export class EventsInfoComponent implements OnInit {
     private getUser(userId: string): User {
         return this.users.find(user => user.id === userId);
     }
+
+    private buildSafeImgUrl(base64: string): SafeUrl {
+        return this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + base64);
+    }
 }
