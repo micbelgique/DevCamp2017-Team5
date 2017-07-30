@@ -1,9 +1,16 @@
 # DevCamp2017-PulsElIT
 FamiDesk
 
-Description courte : FamiDesk a pour mission de préserver l’autonomie des personnes en rassemblant autour d’eux professionnels de la santé, aidant proches, voisins, livreurs, famille, amis et bien d’autres. Afin de ne pas s’emmêler les pinceaux dans ces multiples interactions, ils ont développé un cahier de communication en ligne permettant à chacune des aides de pouvoir notifier son passage et son action. C’est ce processus qu’ils souhaitent améliorer en rendant automatique l’identification des aidants à leur arrivée dans la maison de la personne. L’idée ? Un beacon identifie directement la personne à son arrivée et fait apparaitre une notification de checkin sur son téléphone. Rien de plus simple !
+Description courteï¿½: FamiDesk a pour mission de prï¿½server lï¿½autonomie des personnes en rassemblant autour dï¿½eux professionnels de la santï¿½, aidant proches, voisins, livreurs, famille, amis et bien dï¿½autres. Afin de ne pas sï¿½emmï¿½ler les pinceaux dans ces multiples interactions, ils ont dï¿½veloppï¿½ un cahier de communication en ligne permettant ï¿½ chacune des aides de pouvoir notifier son passage et son action. Cï¿½est ce processus quï¿½ils souhaitent amï¿½liorer en rendant automatique lï¿½identification des aidants ï¿½ leur arrivï¿½e dans la maison de la personne. Lï¿½idï¿½eï¿½? Un beacon identifie directement la personne ï¿½ son arrivï¿½e et fait apparaitre une notification de checkin sur son tï¿½lï¿½phone. Rien de plus simpleï¿½!
+
+## Membres
 
 - Jean Philipe Deblaton
 - Vincent Margan
 - Corentin Leruth
 - Fabian Allardos
+
+## Stack technologique
+Xamarin Forms
+Azure Mobile Service
+Angular 4
