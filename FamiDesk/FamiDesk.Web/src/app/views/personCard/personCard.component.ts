@@ -5,7 +5,7 @@ import { Person } from '../../models/Person.model';
 @Component({
   selector: 'appPersonCard',
   templateUrl: 'personCard.component.html',
-  styleUrls: ['personCard.component.css'],
+  styleUrls: ['./personCard.component.css'],
 })
 export class PersonCardComponent implements OnChanges {
   @Input() person: Person;
