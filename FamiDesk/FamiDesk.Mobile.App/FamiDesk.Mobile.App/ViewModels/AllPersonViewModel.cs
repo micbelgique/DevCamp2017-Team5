@@ -43,6 +43,13 @@ namespace FamiDesk.Mobile.App.ViewModels
                  await ExecuteOpenDetailCommand();
              });
 
+            MessagingCenter.Subscribe<DetailsViewModel, RefreshRootMessage>(this, "RefreshRootMessage", async (sender, msg) =>
+                {
+                    await ExecuteLoadPersonsCommand();
+                });
+
+            MessagingCenter.Send(this, "RefreshRootMessage", new RefreshRootMessage());
+
         }
         private async Task ExecuteDisplayingCommand()
         {

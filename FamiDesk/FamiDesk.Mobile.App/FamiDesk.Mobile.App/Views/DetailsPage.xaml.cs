@@ -20,6 +20,7 @@ namespace FamiDesk.Mobile.App.Views
         {			
 			InitializeComponent();
 			viewModel = new DetailsViewModel();
+            viewModel.Navigation = Navigation;
 			viewModel.Load(person);
 			BindingContext = viewModel;
 			personId = person.Id;
