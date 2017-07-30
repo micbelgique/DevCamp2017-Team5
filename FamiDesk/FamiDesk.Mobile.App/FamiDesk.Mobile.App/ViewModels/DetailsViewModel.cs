@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using FamiDesk.Mobile.App.Helpers;
+using FamiDesk.Mobile.App.Messages;
 using FamiDesk.Mobile.App.Models;
 using FamiDesk.Mobile.App.Views;
 using Xamarin.Forms;
@@ -72,6 +73,7 @@ namespace FamiDesk.Mobile.App.ViewModels
 
         public ICommand CheckInCommand { get; }
         public ICommand CheckOutCommand { get; }
+        public INavigation Navigation { get; set; }
 
         public DetailsViewModel()
         {
@@ -91,6 +93,9 @@ namespace FamiDesk.Mobile.App.ViewModels
                 UserId = App.CurrentUserId,
                 Type = "CheckOut"
             });
+
+            await Navigation.PopToRootAsync();
+            MessagingCenter.Send(this, "RefreshRootMessage", new RefreshRootMessage());
         }
 
         private async Task ExecuteCheckInCommand()
@@ -104,6 +109,9 @@ namespace FamiDesk.Mobile.App.ViewModels
                 UserId = App.CurrentUserId,
                 Type = "CheckIn"
             });
+
+            await Navigation.PopToRootAsync();
+            MessagingCenter.Send(this, "RefreshRootMessage", new RefreshRootMessage());
         }
 
         public async void Load(Person person)

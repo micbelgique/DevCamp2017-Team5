@@ -44,6 +44,7 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Messages\NotificationClickedMessage.cs" />
     <Compile Include="Messages\NotificationMessage.cs" />
+    <Compile Include="Messages\RefreshRootMessage.cs" />
     <Compile Include="Models\BaseDataObject.cs" />
     <Compile Include="Models\BeaconModel.cs" />
     <Compile Include="Models\EventInfo.cs" />

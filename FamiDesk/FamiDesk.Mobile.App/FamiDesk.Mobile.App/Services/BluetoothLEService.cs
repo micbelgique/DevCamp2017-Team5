@@ -81,13 +81,13 @@ namespace FamiDesk.Mobile.App.Services
                 {
                     var toRemove = Beacons.Where(b => (DateTime.Now - b.LastDiscoveredDate).TotalSeconds > 30).ToList();
 
-                    lock (lockObject)
+                    //lock (lockObject)
+                    //{
+                    foreach (var beacon in toRemove)
                     {
-                        foreach (var beacon in toRemove)
-                        {
-                            Beacons.Remove(beacon);
-                        }
+                        Beacons.Remove(beacon);
                     }
+                    //}
 
                     //notify check-out
                     foreach (var beacon in toRemove)
@@ -101,7 +101,7 @@ namespace FamiDesk.Mobile.App.Services
                                 .Where(ev => ev.PersonId == person.Id && ev.UserId == App.CurrentUserId)
                                 .OrderByDescending(d => d.Date).ToList();
                             var lastEvent = userEvents.FirstOrDefault();
-                            bool isIn = lastEvent.Type.ToUpper() == "CHECKIN";
+                            bool isIn = lastEvent?.Type?.ToUpper() == "CHECKIN";
 
                             if (isIn)
                             {
@@ -136,12 +136,6 @@ namespace FamiDesk.Mobile.App.Services
                     var beacon = Beacons.FirstOrDefault(b => b.Id.ToUpper() == e.Device.Id.ToString().ToUpper());
                     if (beacon == null)
                     {
-                        //Add the beacon on the list
-                        lock (lockObject)
-                        {
-                            Beacons.Add(new BeaconModel(e.Device.Id.ToString(), e.Device.Name));
-                        }
-
                         //check if one person match the beacon id
                         var persons = await _personDataStore.GetItemsAsync();
                         var eventInfos = await _eventDataStore.GetItemsAsync();
@@ -152,7 +146,7 @@ namespace FamiDesk.Mobile.App.Services
                                 .Where(ev => ev.PersonId == person.Id && ev.UserId == App.CurrentUserId)
                                 .OrderByDescending(d => d.Date).ToList();
                             var lastEvent = userEvents.FirstOrDefault();
-                            bool isIn = lastEvent.Type.ToUpper() == "CHECKIN";
+                            bool isIn = lastEvent?.Type?.ToUpper() == "CHECKIN";
 
                             if (isIn == false)
                             {
@@ -162,6 +156,12 @@ namespace FamiDesk.Mobile.App.Services
                                         new KeyValuePair<string, string>("Id", person.Id)));
                             }
                         }
+
+                        //Add the beacon on the list
+                        //lock (lockObject)
+                        //{
+                        Beacons.Add(new BeaconModel(e.Device.Id.ToString(), e.Device.Name));
+                        //}
                     }
                     else
                     {
