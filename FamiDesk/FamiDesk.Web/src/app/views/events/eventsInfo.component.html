@@ -1,13 +1,62 @@
-﻿<div>COUCOU :-)</div>
-<div *ngIf="person">{{person.firstName + ' ' + person.lastName}}</div>
-
-<div *ngFor="let eventInfo of eventInfos">{{eventInfo.date | date:'dd/MM/yyyy'}}</div>
-
-<div class="ui-g">
+﻿<div class="ui-g" *ngIf="person">
   <div class="ui-g-8">
-    <div *ngIf="person">{{person.firstName + ' ' + person.lastName}}</div>
+    <div class="ui-g">
+      <div class="ui-g-3">
+        {{person.firstName}}
+      </div>
+      <div class="ui-g-3">
+        {{person.lastName}}
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        {{person.address}}
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="label">Beacon : </label>
+        {{person.beaconId}}
+      </div>
+    </div>
   </div>
   <div class="ui-g-4">
     <img [src]="imgUrl">
   </div>
 </div>
+
+<!--<div *ngFor="let eventInfo of eventInfos">{{eventInfo.date | date:'dd/MM/yyyy'}}</div>-->
+<p-dataList [value]="appointments" [paginator]="true" [rows]="10">
+  <p-header>
+    Visites
+  </p-header>
+  <ng-template let-appointment pTemplate="item">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-9">
+        checkin : {{appointment.checkinDate | date:'dd/MM/yyyy HH:mm:ss'}}
+        <br/>
+        checkout : {{appointment.checkoutDate | date:'dd/MM/yyyy HH:mm:ss'}}
+        <br/>
+        {{appointment | json }}
+      </div>
+      <!--<div class="ui-g-12 ui-md-3" style="text-align:center">
+        <img src="buildUrl(item.)">
+      </div>
+      <div class="ui-g-12 ui-md-9 car-details">
+        <div class="ui-g">
+          <div class="ui-g-2 ui-sm-6">Vin: </div>
+          <div class="ui-g-10 ui-sm-6">{{car.vin}}</div>
+
+          <div class="ui-g-2 ui-sm-6">Year: </div>
+          <div class="ui-g-10 ui-sm-6">{{car.year}}</div>
+
+          <div class="ui-g-2 ui-sm-6">Brand: </div>
+          <div class="ui-g-10 ui-sm-6">{{car.brand}}</div>
+
+          <div class="ui-g-2 ui-sm-6">Color: </div>
+          <div class="ui-g-10 ui-sm-6">{{car.color}}</div>
+        </div>
+      </div>-->
+    </div>
+  </ng-template>
+</p-dataList>
